@@ -1,0 +1,22 @@
+
+
+#img_div{
+    width: 100%;
+    padding: 5px;
+    margin: 15px auto;
+    border: 1px solid #cbcbcb; 
+}
+#img_div:after{
+    content: "";
+    display: block;
+    clear: both;
+}
+img{
+    float: left;
+    margin: 3px;
+    width: 100px;
+    height: 100px;
+}
+img {
+    transition:transform 0.25s ease;
+}
