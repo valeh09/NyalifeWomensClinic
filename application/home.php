@@ -38,39 +38,7 @@
                     </div>
                     <div class="card-body  rounded-0 overflow-auto">
                     <div class="list-group" id="convo_list">
-                        <?php 
-                        if(isset($_GET['eid'])){
-                            $conn->query("UPDATE `messages` set status = 1 where to_user = '{$_SESSION['id']}' and md5(`from_user`) = '{$_GET['eid']}' ");
-                        }
-                        $convo_qry = $conn->query("SELECT *,concat(firstname,' ',lastname) as name FROM users where id in (SELECT to_user FROM messages where from_user = '{$_SESSION['id']}') or id in (SELECT from_user FROM messages where to_user = '{$_SESSION['id']}')");
-                        $convo_list_arr = array();
-                        while($row=$convo_qry->fetch_assoc()):
-                            $last_message_qry = $conn->query("SELECT * FROM messages where (from_user = '{$_SESSION['id']}' and to_user = '{$row['id']}') or (to_user = '{$_SESSION['id']}' and from_user = '{$row['id']}') order by unix_timestamp(`date_created`) desc limit 1");
-                            $last_message_qry = $last_message_qry->num_rows > 0 ? $last_message_qry->fetch_array() : array();
-                            $row['last_message_id'] =isset($last_message_qry['from_user']) ? $last_message_qry['from_user'] : '';
-                            $row['last_message'] =isset($last_message_qry['message']) ? $last_message_qry['message'] : '';
-                            $row['last_message_created'] =isset($last_message_qry['message']) ? $last_message_qry['date_created'] : '';
-                            $un_read = $conn->query("SELECT * FROM messages where to_user = '{$_SESSION['id']}' and from_user = '{$row['id']}' and status = '0' ")->num_rows;
-                             $row['un_read'] = $un_read > 0 ? $un_read : '';
-                            $convo_list_arr[strtotime($row['last_message_created'])] = $row;
-                        endwhile;
-                        $conn->query("UPDATE messages set popped = 1 where to_user = '{$_SESSION['id']}' ");
-                        krsort($convo_list_arr);
-                        ?>
-                        <?php foreach($convo_list_arr as $row): ?>
-                            <a href="./?eid=<?php echo md5($row['id']) ?>" class="list-group-item list-group-item-action list-item rounded-0 convo_with" data-id = '<?php echo $row['id'] ?>'>
-                                <div class="w-100 d-flex position-relative">
-                                    <div class="col-2 px-1">
-                                        <img src="<?php echo is_file('./uploads/avatars/'.$row['id'].'.png') ? './uploads/avatars/'.$row['id'].'.png?v='.(!is_null($row['date_updated']) ? strtotime($row['date_updated']) : strtotime($row['date_created'])) : './images/no-image-available.png' ?>" class='user-search-avatar rounded-circle bg-light border border-dark' alt="">
-                                        <span class="rounded-circle notif-count badge bg-danger"><?php echo $row['un_read'] ?></span>
-                                    </div>
-                                    <div class="col-10 lh-1">
-                                        <div class='text-truncate' title="<?php echo $row['name'] . ' ' . $row['email'] ?>"><b class="user-name"><?php echo $row['name']?> <span class="text-muted search-user-email">(<?php echo $row['email'] ?>)</span> </b></div>
-                                        <div class="text-muted search-user-email text-truncate last-message-field" title="<?php echo $row['last_message'] ?>"><?php echo ($row['last_message_id'] == $_SESSION['id'] ? 'You: ':'').$row['last_message'] ?></div>
-                                    </div>
-                                </div>
-                            </a>
-                        <?php endforeach; ?>
+                       
                         </div>
                     </div>
                 </div>

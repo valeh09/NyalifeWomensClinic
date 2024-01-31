@@ -204,7 +204,16 @@
             </a>
           </li>
           
-         
+          <li class="nav-item">
+            
+            <a href="logout.php" class="nav-link">
+            
+              <i class="fas fa-sign-out-alt mr-2" style="color:crimson"></i>
+              
+                <p class="text-danger"><b> Logout</b></p>
+               
+            </a>
+          </li>
           
          
          

@@ -127,7 +127,33 @@ include "doctor_header.php";
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>4</h3>
+                <h3><?php
+              
+              
+  
+              // localhost is localhost 
+              // servername is root 
+              // password is empty 
+              // database name is database 
+              $conn = mysqli_connect("localhost","root","","nyalife"); 
+                
+                  // SQL query to display row count 
+                  // in building table 
+                  $sql = "SELECT * from tasks"; 
+                
+                  if ($result = mysqli_query($conn, $sql)) { 
+                
+                  // Return the number of rows in result set 
+                  $rowcount = mysqli_num_rows( $result ); 
+                    
+                  // Display result 
+                  printf(" %d\n", $rowcount); 
+              } 
+                
+              // Close the connection 
+              mysqli_close($conn); 
+                
+              ?> </h3>
 
                 <p>Tasks</p>
               </div>
@@ -141,9 +167,9 @@ include "doctor_header.php";
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-danger mr-2">
+            <div class="small-box bg-dark mr-2">
               <div class="inner">
-                <h3>6</h3>
+                <h3>0</h3>
 
                 <p>Telemedicine</p>
               </div>
@@ -180,6 +206,7 @@ include "doctor_header.php";
             width: 100%;
             border-collapse: collapse;
             margin-right: 10px;
+         
         }
 
         table, th, td {
@@ -192,7 +219,7 @@ include "doctor_header.php";
         }
 
         th {
-            background-color: #f2f2f2;
+          background-color: #A9A9A9;
         }
 
         .choices-container {
@@ -208,7 +235,7 @@ include "doctor_header.php";
         }
 
         .active-choice {
-            background-color: #ddd;
+            background-color: #A9A9A9;
         }
     </style>
 </head>

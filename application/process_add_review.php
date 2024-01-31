@@ -14,13 +14,13 @@ if ($conn->connect_error) {
 }
 
 // Get form data
-$rating = $_POST['rating'];
+
 $name = $_POST['name'];
 $email = $_POST['email'];
 $review = $_POST['review'];
 
 // Insert review into the reviews table
-$sql = "INSERT INTO reviews (rating, name, email, review) VALUES ($rating, '$name', '$email', '$review')";
+$sql = "INSERT INTO reviews (name, email, review) VALUES ('$name', '$email', '$review')";
 
 if ($conn->query($sql) === TRUE) {
     echo "Review added successfully!";

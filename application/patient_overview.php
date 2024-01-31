@@ -81,8 +81,7 @@ include "doctor_header.php";
         <div class="overview-item" onclick="showContent('triage')">Triage</div>
         <div class="overview-item" onclick="showContent('ptHist')">Patient History</div>
         <div class="overview-item" onclick="showContent('curtHist')">Current History</div>
-        <div class="overview-item" onclick="showContent('phyExam')">Physical Examination</div>
-        <div class="overview-item" onclick="showContent('impression')">Impression</div>
+       
         <div class="overview-item" onclick="showContent('lab')">Lab</div>
         <div class="overview-item" onclick="showContent('imaging')">Imaging</div>
         <div class="overview-item" onclick="showContent('diagnosis')">Diagnosis</div>
@@ -91,15 +90,20 @@ include "doctor_header.php";
     </div>
     
 
-    <div class="overview-content" id="dashboard-content">
-        <h3>Dashboard</h3>
-        <p><?php echo $patientDashboard; ?></p>
+
+    <div class="overview-container">
+   
+ 
+    <div id="dashboard-content" class="overview-content active">
+        <?php include('dashboard.php'); ?>
     </div>
 
-    <div class="overview-content" id="triage-content" style="display: none;">
-        <h3>Triage</h3>
-        <p><?php echo $triage; ?></p>
+    <div id="triage-content" class="overview-content">
+        <?php include('triage.php'); ?>
     </div>
+
+    
+
 
     <div class="overview-content" id="ptHist-content" style="display: none;">
         <h3>Patient History</h3>
@@ -145,6 +149,11 @@ include "doctor_header.php";
         <h3>Procedure</h3>
         <p><?php echo $procedure; ?></p>
     </div>
+
+
+
+
+
 
     <script>
         function showContent(contentId) {

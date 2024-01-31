@@ -147,7 +147,7 @@
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
        
         <div class="info">
-        <a href="#" class="d-block"> Welcome: <!-- The php tag to display the name from the db --> Schola Airo</a>
+        <a href="#" class="d-block"> Welcome: <!-- The php tag to display the name from the db --> Raymond</a>
         </div>
       </div>
       
@@ -286,7 +286,16 @@
             </a>
           </li>
           
-         
+          <li class="nav-item">
+            
+            <a href="logout.php" class="nav-link">
+            
+              <i class="fas fa-sign-out-alt mr-2" style="color:crimson"></i>
+              
+                <p class="text-danger"><b> Logout</b></p>
+               
+            </a>
+          </li>
           
          
          
