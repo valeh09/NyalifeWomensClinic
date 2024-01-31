@@ -241,7 +241,7 @@ $(document).ready(function(){
 
           
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="messaging.php" class="nav-link">
               <i class="nav-icon fas fa-comment"></i>
               <p>
                 Messaging
@@ -251,7 +251,7 @@ $(document).ready(function(){
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="task.php" class="nav-link">
               <i class="nav-icon fas fa-tasks"></i>
               <p>
                 Tasks

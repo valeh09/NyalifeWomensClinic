@@ -185,7 +185,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="messaging.php" class="nav-link">
+            <a href="doctor_messaging.php" class="nav-link">
               <i class="nav-icon fas fa-comment"></i>
               <p>
                 Messaging
@@ -195,7 +195,7 @@
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="doctor_task.php" class="nav-link">
               <i class="nav-icon fas fa-tasks"></i>
               <p>
                 Tasks

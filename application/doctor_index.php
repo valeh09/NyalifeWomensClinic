@@ -18,14 +18,6 @@ include "doctor_header.php";
          $this_week = 0;
          $next_week = 0;
             $i = 1;
-       
-
-        
-
-        
-
-       
-
 ?>
 
  <!-- Content Wrapper. Contains page content -->
@@ -143,7 +135,7 @@ include "doctor_header.php";
                 <i class="fas fa-tasks"></i>
               </div>
             
-              <a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="doctor_task.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -169,9 +161,14 @@ include "doctor_header.php";
           
           <div>
        
+     
 <head>
-   
+  
+
+<head>
+ 
     <style>
+        /* Your existing CSS styles go here */
         .tables-container {
             display: flex;
             margin-bottom: 20px;
@@ -198,11 +195,6 @@ include "doctor_header.php";
             background-color: #f2f2f2;
         }
 
-        h2 {
-            color: #333;
-            cursor: pointer;
-        }
-
         .choices-container {
             display: flex;
             margin-bottom: 20px;
@@ -220,40 +212,9 @@ include "doctor_header.php";
         }
     </style>
 </head>
-<?php
-// Database connection parameters
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "nyalife";
+<body>
 
-// Create connection
-$conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
-$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-// Function to fetch outpatient data
-function getOutpatientsData($conn) {
-    $stmt = $conn->query("SELECT arrivalTime, patientName, waitingTime FROM appointments WHERE type = 'outpatient'");
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-
-// Function to fetch inpatient data
-function getInpatientsData($conn) {
-    $stmt = $conn->query("SELECT admissionTime, patientName, timeSinceAdmission FROM patients WHERE type = 'inpatient'");
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-
-// Function to fetch upcoming visits data
-function getUpcomingVisitsData($conn) {
-    $stmt = $conn->query("SELECT AppointmentDate, PatientName, Contact FROM appointments WHERE AppointmentDate > NOW()");
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-
-// Close connection
-$conn = null;
-?>
-
-<div class="choices-container">
+    <div class="choices-container">
         <div class="choice-column" onclick="showTable('outpatientsTable'); setActiveChoice(this);">Outpatients</div>
         <div class="choice-column" onclick="showTable('inpatientsTable'); setActiveChoice(this);">Inpatients</div>
         <div class="choice-column" onclick="showTable('upcomingVisitsTable'); setActiveChoice(this);">Upcoming Visits</div>
@@ -289,6 +250,24 @@ $conn = null;
     </div>
 
     <script>
+        // Sample data for demonstration
+        const outpatientsData = [
+            { arrivalTime: '2024-01-11 09:00', patientName: 'Samantha Otieno', waitingTime: '0h:15m' },
+            { arrivalTime: '2024-01-11 09:30', patientName: 'Patricia Achieng', waitingTime: '1h:30m' }
+            // Add more data as needed
+        ];
+
+        const inpatientsData = [
+            { admissionTime: '2024-01-10 15:45', patientName: 'Mary Johnson', timeSinceAdmission: '18h:30m' },
+            { admissionTime: '2024-01-11 08:00', patientName: 'Robert Brown', timeSinceAdmission: '1h:15m' }
+            // Add more data as needed
+        ];
+
+        const upcomingVisitsData = [
+            { dueDate: '2024-01-12', patientName: 'Susan', phoneNumber: '123-456-7890' }
+            // Add more data as needed
+        ];
+
         // Function to populate a table with data
         function populateTable(tableId, data) {
             const table = document.getElementById(tableId);
@@ -298,6 +277,10 @@ $conn = null;
                     const cell = row.insertCell();
                     cell.textContent = item[key];
                 }
+                // Add click event to each row for patient selection
+                row.addEventListener('click', function() {
+                    goToPatientOverview(item.patientName);
+                });
             });
         }
 
@@ -322,20 +305,23 @@ $conn = null;
             choiceElement.classList.add('active-choice');
         }
 
-        // Fetch and populate tables with data from PHP
-        fetch('data.php') // Assume your PHP script is named data.php
-            .then(response => response.json())
-            .then(data => {
-                populateTable('outpatientsTable', data.outpatientsData);
-                populateTable('inpatientsTable', data.inpatientsData);
-                populateTable('upcomingVisitsTable', data.upcomingVisitsData);
-            })
-            .catch(error => console.error('Error fetching data from PHP:', error));
+        // Function to navigate to patient overview page with the selected patient's name
+        function goToPatientOverview(patientName) {
+            window.location.href = `patient_overview.php?name=${encodeURIComponent(patientName)}`;
+        }
+
+        // Populate tables with sample data
+        populateTable('outpatientsTable', outpatientsData);
+        populateTable('inpatientsTable', inpatientsData);
+        populateTable('upcomingVisitsTable', upcomingVisitsData);
 
         // Show the first table by default and set it as active
         showTable('outpatientsTable');
         setActiveChoice(document.querySelector('.choices-container .choice-column'));
     </script>
+
+
+
  
 <?php
 

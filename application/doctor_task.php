@@ -1,15 +1,15 @@
+ 
 <?php
 
 include "doctor_header.php";                 
 ?>
 
 
-<head>
-   
-     
-    <style>
-      
 
+<head>
+  
+    <style>
+     
         .table-container {
             max-width: 800px;
             margin: 20px auto;
@@ -72,11 +72,7 @@ include "doctor_header.php";
             background-color: #f44336;
         }
     </style>
-    
-    
 </head>
-
-       
  <!-- Content Wrapper. Contains page content -->
  <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -84,13 +80,14 @@ include "doctor_header.php";
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Patients list</h1> 
+            <h1 class="m-0">Task List</h1> 
           </div><!-- /.col -->
           
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
-        <?php
+    <!-- /.content-header -->
+<?php
 // Replace these values with your actual database connection details
 $servername = "localhost";
 $username = "root";
@@ -107,10 +104,10 @@ if ($conn->connect_error) {
 
 // Search functionality
 $search = isset($_GET['search']) ? $_GET['search'] : '';
-$searchCondition = !empty($search) ? "WHERE FirstName LIKE '%$search%' OR LastName LIKE '%$search%' OR PhoneNumber LIKE '%$search%' OR EmailAddress LIKE '%$search%'" : '';
+$searchCondition = !empty($search) ? "WHERE task_name LIKE '%$search%' OR priority LIKE '%$search%' OR deadline LIKE '%$search%' OR status LIKE '%$search%'" : '';
 
-// Fetch patient records from the database
-$sql = "SELECT PatientID, FirstName, LastName, PhoneNumber, EmailAddress FROM patients $searchCondition";
+// Fetch task records from the database
+$sql = "SELECT id, task_name, priority, deadline, status FROM tasks $searchCondition";
 $result = $conn->query($sql);
 
 // Close connection
@@ -119,8 +116,8 @@ $conn->close();
 
 <div class="table-container">
     <div class="header">
-        <a href="doctor_add_patient.php" class="add-button">Add New Patient</a>
-        <form action="doctor_manage_patients.php" method="get" class="search-form">
+        <a href="doctor_add_task.php" class="add-button">Add New Task</a>
+        <form action="doctor_task.php" method="get" class="search-form">
             <input type="text" name="search" placeholder="Search..." value="<?= htmlspecialchars($search) ?>">
             <button type="submit">Search</button>
         </form>
@@ -128,26 +125,26 @@ $conn->close();
 
     <table>
         <tr>
-            <th>PatientID</th>
-            <th>FirstName</th>
-            <th>LastName</th>
-            <th>PhoneNumber</th>
-            <th>EmailAddress</th>
+            <th>ID</th>
+            <th>Task Name</th>
+            <th>Priority</th>
+            <th>Deadline</th>
+            <th>Status</th>
             <th>Action</th>
         </tr>
         <?php
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 echo "<tr>
-                        <td>{$row['PatientID']}</td>
-                        <td>{$row['FirstName']}</td>
-                        <td>{$row['LastName']}</td>
-                        <td>{$row['PhoneNumber']}</td>
-                        <td>{$row['EmailAddress']}</td>
+                        <td>{$row['id']}</td>
+                        <td>{$row['task_name']}</td>
+                        <td>{$row['priority']}</td>
+                        <td>{$row['deadline']}</td>
+                        <td>{$row['status']}</td>
                         <td>
-                            <a href='doctor_update_patient.php?id={$row['PatientID']}' class='edit-button'>Edit</a>
-                            <a href='doctor_view_patients.php?id={$row['PatientID']}' class='view-button'>View</a>
-                            <button class='delete-button' onclick='confirmDelete({$row['PatientID']})'>Delete</button>
+                            <a href='doctor_edit_task.php?id={$row['id']}' class='edit-button'>Edit</a>
+                            <a href='doctor_view_task.php?id={$row['id']}' class='view-button'>View</a>
+                            <button class='delete-button' onclick='confirmDelete({$row['id']})'>Delete</button>
                         </td>
                       </tr>";
             }
@@ -160,24 +157,19 @@ $conn->close();
 
 <script>
 function confirmDelete(id) {
-    var confirmDelete = confirm("Are you sure you want to delete this patient record?");
+    var confirmDelete = confirm("Are you sure you want to delete this task?");
     
     if (confirmDelete) {
-        window.location.href = 'delete_patient.php?id=' + id;
+        window.location.href = 'doctor_delete_task.php?id=' + id;
     }
 }
 </script>
 
-        
-        
-            </div>
 
-    
-        </div>
 
-        
-    </div>
-</body>
+
+
+
 <?php
 
 include "footer.php";                 

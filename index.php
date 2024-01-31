@@ -74,7 +74,7 @@
     <h2>Login</h2>
 
    
-    <form action="process_login.php" method="post">
+    <form action="application/process_login.php" method="post">
         <input type="email" name="email" placeholder="Email" required>
 
      
@@ -83,7 +83,7 @@
         <button type="submit">Login</button>
     </form>
 
-    <p><a href="forgot_password.php">Forgot Password?</a></p>
+    <p><a href="application/forgot_password.php">Forgot Password?</a></p>
 </div>
 
 </body>

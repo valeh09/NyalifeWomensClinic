@@ -8,9 +8,7 @@ include "reception_header.php";
      
   
     <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
+      
 
         .form-container {
             max-width: 400px;

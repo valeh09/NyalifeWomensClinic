@@ -143,7 +143,7 @@ include "reception_header.php";
                 <i class="fas fa-tasks"></i>
               </div>
             
-              <a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="task.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->

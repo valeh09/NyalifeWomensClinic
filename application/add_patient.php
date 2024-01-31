@@ -37,7 +37,19 @@ include "reception_header.php";
         </style>
     
 </head>
-<body>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Add New Patient</h1> 
+          </div><!-- /.col -->
+          
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
         <?php
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -93,8 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <div class="form-container">
-    <h2>Add Patient Information</h2>
-    <form action="add_patient.php" method="post">
+        <form action="add_patient.php" method="post">
         <label for="first_name">First Name:</label>
         <input type="text" name="first_name" required>
 
