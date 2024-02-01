@@ -16,27 +16,14 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Fetch patient information based on the provided ID
-$sql = "SELECT * FROM patients WHERE id = $patientID";
-$result = $conn->query($sql);
+// Delete patient record from the "patients" table
+$sql = "DELETE FROM patients WHERE PatientID = $patientID"; // Using 'PatientID'
 
-if ($result === FALSE) {
-    // Handle SQL query error
-    echo "Error fetching patient record: " . $conn->error;
+if ($conn->query($sql) === TRUE) {
+    echo "Patient record deleted successfully!";
 } else {
-    if ($result->num_rows > 0) {
-        // Delete patient record from the "patients" table
-        $deleteSql = "DELETE FROM patients WHERE id = $patientID";
-
-        if ($conn->query($deleteSql) === TRUE) {
-            echo "Patient record deleted successfully!";
-        } else {
-            // Handle delete error
-            echo "Error deleting patient record: " . $conn->error;
-        }
-    } else {
-        echo "Patient not found.";
-    }
+    // Handle delete error
+    echo "Error deleting patient record: " . $conn->error;
 }
 
 // Close connection
