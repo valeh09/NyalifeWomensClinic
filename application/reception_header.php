@@ -1,11 +1,58 @@
-
-
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Reception | Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/x-icon" href="nya-logo.jpg">
+  <style>
+     /* THIS IS THE CSS FOR THE FORM USED TO EDIT USER DETAILS ON THE SPAN*/
+      /* Style for the popup form container */
+      .popup-form-container {
+      height: 350px;
+      width: 500px; 
+      display: none;
+      position: fixed;
+      top: 70%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #f1f1f1;
+      padding: 20px;
+      border: 1px solid #ccc;
+      z-index: 1;
+    }
+    
+
+    /* Style for the span element */
+    .popup-trigger {
+      cursor: pointer;
+      text-decoration: underline;
+      color: blue;
+    }
+    /* //the css for the container for booking form */
+    .popup-form-container1 {
+      
+      height: 1000;
+      width: 500px; 
+      
+      display: none;
+      position: absolute;
+      
+      top: 100%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #f1f1f1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      z-index: 1;
+    }
+  </style>
+  <!-- MATERIAL ICONS FROM GOOGLE --> <!-- MATERIAL ICONS FROM GOOGLE -->
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">

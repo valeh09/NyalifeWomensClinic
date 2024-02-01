@@ -1,15 +1,11 @@
 <?php
-// Replace these values with your actual database connection details
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "nyalife";
+
+include("database/connect.php");
 
 // Get the patient ID from the URL parameter
 $patientID = $_GET['id'];
 
 // Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection
 if ($conn->connect_error) {
@@ -21,6 +17,8 @@ $sql = "DELETE FROM patients WHERE PatientID = $patientID"; // Using 'PatientID'
 
 if ($conn->query($sql) === TRUE) {
     echo "Patient record deleted successfully!";
+    echo '<script>window.location.href = "manage_patients.php";</script>';
+    
 } else {
     // Handle delete error
     echo "Error deleting patient record: " . $conn->error;

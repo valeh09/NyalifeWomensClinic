@@ -5,28 +5,7 @@ include "reception_header.php";
 ?>
 
 
-<?php
 
-        // database connection
-        require_once "config.php";
-
-         $currentDay = date( 'Y-m-d', strtotime("today") );
-         $tomarrow = date( 'Y-m-d', strtotime("+1 day") );
-
-         $today_leave = 0;
-         $tomarrow_leave = 0;
-         $this_week = 0;
-         $next_week = 0;
-            $i = 1;
-       
-
-        
-
-        
-
-       
-
-?>
 
  <!-- Content Wrapper. Contains page content -->
  <div class="content-wrapper">
@@ -59,11 +38,11 @@ include "reception_header.php";
                 // servername is root 
                 // password is empty 
                 // database name is database 
-                $conn = mysqli_connect("localhost","root","","nyalife"); 
+                include("database/connect.php"); 
                   
                     // SQL query to display row count 
                     // in building table 
-                    $sql = "SELECT * from appointments"; 
+                    $sql = "SELECT * from nyaAppointments"; 
                   
                     if ($result = mysqli_query($conn, $sql)) { 
                   
@@ -102,7 +81,7 @@ include "reception_header.php";
               // servername is root 
               // password is empty 
               // database name is database 
-              $conn = mysqli_connect("localhost","root","","nyalife"); 
+              $conn = mysqli_connect("localhost","root","","nyalife(3)"); 
                 
                   // SQL query to display row count 
                   // in building table 
@@ -150,12 +129,97 @@ include "reception_header.php";
           
 
         </div>
- 
-          
-          <div>
-       
-  
-</div>  
+        
+                <br>
+                <br>
+                <!-- THIS IS THE FORM THAT EDITS USER DETAILS -->
+
+    <div id="popupFormEdit" class="popup-form-container">
+       <h3 style = "color:red">Are you sure you want to remove the patient from the Line</h3>
+        <form action = "database/edit-from.php" method = "POST">
+            <label for="name">Enter the email you want to update:</label>
+            <input type="email" id="email-compared" name="email-compared" placeholder = "Confrim from recent patients" required><br>
+
+            <label for="name">Name:</label>
+            <input type="text" id="name-edit" name="name-edit" placeholder = "Enter new name" required><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email-edit" name="email-edit" placeholder = "Enter new email" required><br>
+            <br>
+            <button type="submit" name="Send-update">Yes</button>
+        </form>
+        <br>
+        <span onclick="closePopupForm()">Close</span>
+    </div>
+
+    <!-- THIS IS THE END OF THE FORM THAT EDITS USER DETAILS -->
+
+    <div class='timeline-items'>
+    <?php
+                        include("database/connect.php");
+                        $currentDate = date("Y-m-d");
+                        
+                        $sql = "SELECT *
+                                FROM `patients`
+                                WHERE `date` = '$currentDate'";
+
+                        $result = mysqli_query($conn, $sql);
+                        if($result){
+                            $num = mysqli_num_rows($result);
+
+                            if($num>0){
+                                while($row = mysqli_fetch_assoc($result)){
+
+                                    echo "
+                                    
+                                    <div class='timeline-item' onclick='openPopupForm()'>
+                                    <div class='timeline-dot'></div>
+                                    <div class='timeline-date'> {$row["FirstName"]} </div>
+                                    <div class='timeline-content'>
+                                    <div style='color:white;'>Room:{$row["rooms"]}</div>
+                                    
+                                    <div style='color:white;'>Arrival: {$row["visitTime"]}</div>
+                                    <span class='status delivered'>In the line</span>
+
+                                    
+
+
+                                    </div>
+                                    ";
+                                    echo "{$row["statusLine"]}";
+                                }
+                            }else{
+                              echo "<h2 style = 'color:red;'>There are no patients today! </h2>";
+                            }
+                        }
+                        
+
+
+                        ?>
+                        
+
+</div>
+
+
+            
+                <!-- ///ABOVE IS THE ADDED PART -->
+                
+            </div>            
+
+          </div>  
+          <script>
+            // Function to open the popup form for editing user details
+              function openPopupForm() {
+                  var popupForm = document.getElementById('popupFormEdit');
+                  popupForm.style.display = 'block';
+                }
+
+                // Function to close the popup form for editing user details
+                function closePopupForm() {
+                  var popupForm = document.getElementById('popupFormEdit');
+                  popupForm.style.display = 'none';
+                }
+          </script>
  
 <?php
 
