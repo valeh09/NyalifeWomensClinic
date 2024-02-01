@@ -14,6 +14,7 @@ if ($conn->connect_error) {
 }
 
 // Get form data
+
 $email = $_POST['email'];
 $password = $_POST['password'];
 

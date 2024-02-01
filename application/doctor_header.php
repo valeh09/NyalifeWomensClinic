@@ -147,7 +147,7 @@
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
        
         <div class="info">
-        <a href="#" class="d-block"> Welcome: <!-- The php tag to display the name from the db --> Schola Airo</a>
+        <a href="#" class="d-block"> Welcome: Schola Airo</a>
         </div>
       </div>
       

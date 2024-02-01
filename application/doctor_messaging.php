@@ -16,117 +16,203 @@ include "doctor_header.php";
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
-    <?php
+  
 
-require_once('config.php');
-$page = isset($_GET['page']) ? $_GET['page'] : 'home';
 
-?>
-
+    <!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo ucwords(str_replace('_',' ',$page)) ?> |Nyalife Women's Clinic</title>
-    <link rel="stylesheet" href="./fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="./css/bootstrap.min.css">
-    <link rel="stylesheet" href="./css/custom.css">
-    <script src="./js/jquery-3.6.0.min.js"></script>
-    <script src="./js/popper.min.js"></script>
-    <script src="./js/bootstrap.min.js"></script>
-    <script src="./fontawesome/js/all.min.js"></script>
+ <style>
+
+.container {
+    display: flex;
+    height: 100vh;
+    background-color: #4e94ab;
+}
+
+.users {
+    width: 20%;
+    padding: 20px;
+    background-color: #5eafd7;
+    overflow-y: auto;
+}
+.users h2 {
+    text-align: center;
+}
+
+.users ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.users li {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.users li:hover {
+    background-color: #e6e6e6;
+}
+
+.users li.active {
+    background-color: #3399ff;
+    color: #fff;
+}
+
+.messages {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #ed97b2;
+    overflow-y: auto;
+}
+
+.messages h2 {
+    text-align: center;
+}
+
+#messageContainer {
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+input[type="text"] {
+    width: 70%;
+    padding: 8px;
+}
+
+button {
+    padding: 8px;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.empty-message {
+    text-align: center;
+    color: #555;
+}
+
+ </style>
 </head>
-<body class="bg-light">
-    <main>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary bg-gradient" id="topNavBar">
-        <div class="container">
-            <a class="navbar-brand" href="./">
-           Nyalife Women's Clinic
-            </a>
-            <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button> -->
-            <!-- <div class="collapse navbar-collapse" id="navbarNav">
-                
-            </div> -->
+
+
+
+    <div class="container">
+        <div class="users">
+            <h2>Users</h2>
+            <ul id="userList"></ul>
+        </div>
+        <div class="messages">
+            <h2>Messages</h2>
+            <div id="messageContainer"></div>
             <div>
-            <?php if(isset($_SESSION['id'])): ?>
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle bg-transparent  text-light border-0" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <span class="me-1"><img src="<?php echo is_file('./uploads/avatars/'.$_SESSION['id'].'.png') ? './uploads/avatars/'.$_SESSION['id'].'.png?v='.(is_null($_SESSION['date_updated']) ? strtotime($_SESSION['date_created']) : strtotime($_SESSION['date_updated'])) : './images/no-image-available.png' ?>" alt="avatar" class="avatar rounded-circle"></span>    Hello <?php echo $_SESSION['firstname'] ?>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="./?page=profile">My Profile</a></li>
-                        <li><a class="dropdown-item" href="./Actions.php?a=logout">Logout</a></li>
-                    </ul>
-                </div>
-            <?php endif; ?>
+                <input type="text" id="messageInput" placeholder="Type your message">
+                <button onclick="sendMessage()">Send</button>
             </div>
         </div>
-    </nav>
-    <div class="container py-3" id="page-container">
-        <?php 
-            if(isset($_SESSION['flashdata'])):
-        ?>
-        <div class="dynamic_alert alert alert-<?php echo $_SESSION['flashdata']['type'] ?>">
-        <div class="float-end"><a href="javascript:void(0)" class="text-dark text-decoration-none" onclick="$(this).closest('.dynamic_alert').hide('slow').remove()">x</a></div>
-            <?php echo $_SESSION['flashdata']['msg'] ?>
-        </div>
-        <?php unset($_SESSION['flashdata']) ?>
-        <?php endif; ?>
-        <?php
-            include $page.'.php';
-        ?>
     </div>
-    </main>
-    <div class="modal fade" id="uni_modal" role='dialog' data-bs-backdrop="static" data-bs-keyboard="true">
-        <div class="modal-dialog modal-md modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header py-2">
-            <h5 class="modal-title"></h5>
-        </div>
-        <div class="modal-body">
-        </div>
-        <div class="modal-footer py-1">
-            <button type="button" class="btn btn-sm rounded-0 btn-primary" id='submit' onclick="$('#uni_modal form').submit()">Save</button>
-            <button type="button" class="btn btn-sm rounded-0 btn-secondary" data-bs-dismiss="modal">Close</button>
-        </div>
-        </div>
-        </div>
-    </div>
-    <div class="modal fade" id="uni_modal_secondary" role='dialog' data-bs-backdrop="static" data-bs-keyboard="true">
-        <div class="modal-dialog modal-md modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header py-2">
-            <h5 class="modal-title"></h5>
-        </div>
-        <div class="modal-body">
-        </div>
-        <div class="modal-footer py-1">
-            <button type="button" class="btn btn-sm rounded-0 btn-primary" id='submit' onclick="$('#uni_modal_secondary form').submit()">Save</button>
-            <button type="button" class="btn btn-sm rounded-0 btn-secondary" data-bs-dismiss="modal">Close</button>
-        </div>
-        </div>
-        </div>
-    </div>
-    <div class="modal fade" id="confirm_modal" role='dialog'>
-        <div class="modal-dialog modal-md modal-dialog-centered" role="document">
-        <div class="modal-content rounded-0">
-            <div class="modal-header py-2">
-            <h5 class="modal-title">Confirmation</h5>
-        </div>
-        <div class="modal-body">
-            <div id="delete_content"></div>
-        </div>
-        <div class="modal-footer py-1">
-            <button type="button" class="btn btn-primary btn-sm rounded-0" id='confirm' onclick="">Continue</button>
-            <button type="button" class="btn btn-secondary btn-sm rounded-0" data-bs-dismiss="modal">Close</button>
-        </div>
-        </div>
-        </div>
-    </div>
-</body>
-</html>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+   // scripts.js
+
+$(document).ready(function() {
+    // Load users initially
+    loadUsers();
+
+    // Set interval to refresh messages every 5 seconds (for demonstration)
+    setInterval(function() {
+        var activeUserId = $('#userList .user.active').data('userid');
+        loadMessages(activeUserId);
+    }, 5000);
+});
+
+function loadUsers() {
+    // Implement AJAX to load users
+    $.ajax({
+        type: 'GET',
+        url: 'loadUsers.php',
+        success: function(response) {
+            $('#userList').html(response);
+            // Load the first user's messages by default
+            var firstUserId = $('#userList .user:first').data('userid');
+            loadMessages(firstUserId);
+        },
+        error: function(error) {
+            console.error(error);
+        }
+    });
+}
+
+function loadMessages(receiverId) {
+    // Implement AJAX to load messages based on the selected user (receiverId)
+    $.ajax({
+        type: 'GET',
+        url: 'loadMessages.php',
+        data: { receiver_id: receiverId },
+        success: function(response) {
+            $('#messageContainer').html(response);
+        },
+        error: function(error) {
+            console.error(error);
+        }
+    });
+}
+
+function sendMessage() {
+    var senderId = 1; // Replace with the actual sender's ID
+    var receiverId = $('#userList .user.active').data('userid');
+    var message = $('#messageInput').val();
+
+    $.ajax({
+        type: 'POST',
+        url: 'sendMessage.php',
+        data: { sender_id: senderId, receiver_id: receiverId, message: message },
+        success: function(response) {
+            console.log(response);
+            // Reload messages or update the UI as needed
+            loadMessages(receiverId);
+        },
+        error: function(error) {
+            console.error(error);
+        }
+    });
+}
+
+function loadChat() {
+    var receiverId = document.getElementById("receiverSelect").value;
+
+    // Use AJAX to fetch chat messages based on the selected receiverId
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            // Update the message container with the retrieved messages
+            document.getElementById("messageContainer").innerHTML = xhr.responseText;
+        }
+    };
+    xhr.open("GET", "get_chat_messages.php?receiverId=" + receiverId, true);
+    xhr.send();
+}
+
+
+    </script>
+
+
+
+
 <?php
 
 include "footer.php";                 
