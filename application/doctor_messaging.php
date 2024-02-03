@@ -62,7 +62,7 @@ include "doctor_header.php";
 .messages {
     flex-grow: 1;
     padding: 20px;
-    background-color: #ed97b2;
+    background-color: #fff;
     overflow-y: auto;
 }
 

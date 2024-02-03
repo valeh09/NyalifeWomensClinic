@@ -5,7 +5,7 @@ include_once "config.php";
 $receiverId = $_GET['receiverId'];
 
 // Fetch chat messages based on the receiver ID
-$getChatMessagesQuery = "SELECT sender_id, message, timestamp FROM messages WHERE (sender_id = $userId AND receiver_id = $receiverId) OR (sender_id = $receiverId AND receiver_id = $userId) ORDER BY timestamp";
+$getChatMessagesQuery = "SELECT sender_id, message, timestamp FROM messages WHERE (sender_id = $staffId AND receiver_id = $receiverId) OR (sender_id = $receiverId AND receiver_id = $staffId) ORDER BY timestamp";
 $chatMessagesResult = $conn->query($getChatMessagesQuery);
 
 // Display chat messages
