@@ -39,15 +39,10 @@
                     <div class="card-body  rounded-0 overflow-auto">
                     <div class="list-group" id="convo_list">
                     <?php 
-
-
-$staffIdColumnName = 'id';
-
-
-
-                        if(isset($_GET['eid'])){
-                            $conn->query("UPDATE `messages` set status = 1 where to_user = '{$_SESSION['id']}' and md5(`from_user`) = '{$_GET['eid']}' ");
-                        }
+                    
+ if(isset($_GET['eid'])){
+    $conn->query("UPDATE `messages` set status = 1 where to_user = '{$_SESSION['id']}' and md5(`from_user`) = '{$_GET['eid']}' ");
+}
                         $convo_qry = $conn->query("SELECT *,concat(first_name,last_name) as name FROM staff where id in (SELECT to_user FROM messages where from_user = '{$_SESSION['id']}') or id in (SELECT from_user FROM messages where to_user = '{$_SESSION['id']}')");
                         $convo_list_arr = array();
                         while($row=$convo_qry->fetch_assoc()):

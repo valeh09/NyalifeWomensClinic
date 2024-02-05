@@ -81,7 +81,7 @@ include "reception_header.php";
               // servername is root 
               // password is empty 
               // database name is database 
-              $conn = mysqli_connect("localhost","root","","nyalife(3)"); 
+              $conn = mysqli_connect("localhost","root","","nyalife"); 
                 
                   // SQL query to display row count 
                   // in building table 

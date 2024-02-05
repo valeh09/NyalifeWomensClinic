@@ -27,6 +27,7 @@ $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
+    $_SESSION['id'] = $row['id'];
     $role = $row['role'];
 
     // Redirect based on the user's role

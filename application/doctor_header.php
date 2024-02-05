@@ -1,12 +1,26 @@
+<?php
+session_start();
 
+// Initialize $staffId to null
+$id = isset($_SESSION['id']) ? $_SESSION['id'] : null;
 
+if ($id !== null) {
+    // User is already logged in
+    // You can redirect or display a message as needed
+    // For now, I'm just displaying a message
+    echo "User is already logged in.";
+} else {
+    require_once('config.php');
+    $page = isset($_GET['page']) ? $_GET['page'] : 'home';
+}
+?>
     <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Doctor | Dashboard</title>
-
+  <link rel="icon" type="image/png" href="dist/img/favicon.png">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->

@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Reception | Dashboard</title>
   <link rel="stylesheet" href="css/style.css">
-  <link rel="icon" type="image/x-icon" href="nya-logo.jpg">
+  <link rel="icon" type="image/png" href="dist/img/favicon.png">
+
   <style>
      /* THIS IS THE CSS FOR THE FORM USED TO EDIT USER DETAILS ON THE SPAN*/
       /* Style for the popup form container */
