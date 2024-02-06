@@ -38,11 +38,11 @@ include "reception_header.php";
                 // servername is root 
                 // password is empty 
                 // database name is database 
-                include("database/connect.php"); 
+                include("config.php"); 
                   
                     // SQL query to display row count 
                     // in building table 
-                    $sql = "SELECT * from nyaAppointments"; 
+                    $sql = "SELECT * from appointments"; 
                   
                     if ($result = mysqli_query($conn, $sql)) { 
                   
@@ -155,8 +155,8 @@ include "reception_header.php";
     <!-- THIS IS THE END OF THE FORM THAT EDITS USER DETAILS -->
 
     <div class='timeline-items'>
-    <?php
-                        include("database/connect.php");
+  <!--
+                        include("config");
                         $currentDate = date("Y-m-d");
                         
                         $sql = "SELECT *
@@ -199,7 +199,7 @@ include "reception_header.php";
                         
 
 </div>
-
+                      -->
 
             
                 <!-- ///ABOVE IS THE ADDED PART -->

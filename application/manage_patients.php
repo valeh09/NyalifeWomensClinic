@@ -96,7 +96,7 @@ include "reception_header.php";
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "nyalife(3)";
+$dbname = "nyalife";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);

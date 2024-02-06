@@ -39,11 +39,11 @@
                     <div class="card-body  rounded-0 overflow-auto">
                     <div class="list-group" id="convo_list">
                     <?php 
-                    
+                   
  if(isset($_GET['eid'])){
     $conn->query("UPDATE `messages` set status = 1 where to_user = '{$_SESSION['id']}' and md5(`from_user`) = '{$_GET['eid']}' ");
 }
-                        $convo_qry = $conn->query("SELECT *,concat(first_name,last_name) as name FROM staff where id in (SELECT to_user FROM messages where from_user = '{$_SESSION['id']}') or id in (SELECT from_user FROM messages where to_user = '{$_SESSION['id']}')");
+                        $convo_qry = $conn->query("SELECT *,concat(first_name) as name FROM staff where id in (SELECT to_user FROM messages where from_user = '{$_SESSION['id']}') or id in (SELECT from_user FROM messages where to_user = '{$_SESSION['id']}')");
                         $convo_list_arr = array();
                         while($row=$convo_qry->fetch_assoc()):
                             $last_message_qry = $conn->query("SELECT * FROM messages where (from_user = '{$_SESSION['id']}' and to_user = '{$row['id']}') or (to_user = '{$_SESSION['id']}' and from_user = '{$row['id']}') order by unix_timestamp(`date_created`) desc limit 1");
@@ -87,7 +87,7 @@
                 $message_offset= 0;
                 $message_limit = 25;
                 $eid = isset($_GET['eid']) ? $_GET['eid'] :'-1';
-                $qry = $conn->query("SELECT *,CONCAT(first_name,last_name) as fullname FROM  `staff` where md5(id) = '{$eid}' ");
+                $qry = $conn->query("SELECT *,CONCAT(first_name) as fullname FROM  `staff` where md5(id) = '{$eid}' ");
                 if($qry->num_rows > 0):
                     foreach($qry->fetch_array() as $k => $v){
                         $user_to[$k] = $v;

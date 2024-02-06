@@ -10,90 +10,89 @@ include "doctor_header.php";
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-          <h1 class="m-0"> Patient Dashboard</h1> 
+        
           </div><!-- /.col -->
           
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
-
+    <!DOCTYPE html>
+<html lang="en">
 <head>
-  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Overview</title>
     <style>
-       
+        body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
 
-       .overview-container {
-    display: flex;
-    justify-content: space-evenly;
-    padding: 5px; /* Adjusted padding */
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    h1 {
+        text-align: center;
+        color: #333;
+    }
 
-}
+    .overview-container {
+        display: flex;
+        justify-content: space-evenly;
+        padding: 15px;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        overflow-x: auto;
+    }
 
-        .overview-item {
-            flex: 1;
-            text-align: center;
-            padding: 12px;
-            margin: 7px;
-            background-color: #98FB98;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s ease;
-            cursor: pointer;
-          
-        }
+    .overview-item {
+        margin-right: 10px;
+        cursor: pointer;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f8f8f8;
+        transition: background-color 0.3s ease-in-out;
+    }
 
-        .overview-item:hover {
-            background-color:  #f2f2f2;
-        }
+    .overview-item:hover {
+        background-color: #e6e6e6;
+    }
 
-        .overview-content {
-            margin: 20px;
-        }
+    .overview-content {
+        display: none;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        margin-top: 20px;
+    }
+
+    .overview-content.active {
+        display: block;
+    }
+
     </style>
 </head>
+<body>
 
-  
+    <h1>Patient Overview - Samantha Otieno</h1>
 
-    <?php
-        // Dummy data for patient overview
-        $patientName = isset($_GET['name']) ? htmlspecialchars($_GET['name']) : '';
-        $patientDashboard = 'Patient Dashboard Data';
-        $triage = 'Triage Data';
-        $ptHist = 'Patient History Data';
-        $curtHist = 'Current History Data';
-        $phyExam = 'Physical Examination Data';
-        $impression = 'Impression Data';
-        $lab = 'Lab Data';
-        $imaging = 'Imaging Data';
-        $diagnosis = 'Diagnosis Data';
-        $prescription = 'Prescription Data';
-        $procedure = 'Procedure Data';
-    ?>
-
-    <h2><?php echo $patientName; ?></h2>
-
+    <!-- Add links to each section in the overview container -->
     <div class="overview-container">
-  
-   
         <div class="overview-item" onclick="showContent('dashboard')">Dashboard</div>
         <div class="overview-item" onclick="showContent('triage')">Triage</div>
         <div class="overview-item" onclick="showContent('ptHist')">Patient History</div>
         <div class="overview-item" onclick="showContent('curtHist')">Current History</div>
-       
+        <div class="overview-item" onclick="showContent('phExam')">Physical Exam</div>
+        <div class="overview-item" onclick="showContent('impression')">Impression</div>
         <div class="overview-item" onclick="showContent('lab')">Lab</div>
         <div class="overview-item" onclick="showContent('imaging')">Imaging</div>
         <div class="overview-item" onclick="showContent('diagnosis')">Diagnosis</div>
         <div class="overview-item" onclick="showContent('prescription')">Prescription</div>
         <div class="overview-item" onclick="showContent('procedure')">Procedure</div>
     </div>
-    
 
-
-    <div class="overview-container">
-   
- 
+    <!-- Add content containers for each section -->
     <div id="dashboard-content" class="overview-content active">
         <?php include('dashboard.php'); ?>
     </div>
@@ -102,75 +101,58 @@ include "doctor_header.php";
         <?php include('triage.php'); ?>
     </div>
 
-    
-
-
-    <div class="overview-content" id="ptHist-content" style="display: none;">
-        <h3>Patient History</h3>
-        <p><?php echo $ptHist; ?></p>
+    <div id="ptHist-content" class="overview-content">
+        <?php include('past_history.php'); ?>
     </div>
 
-    <div class="overview-content" id="curtHist-content" style="display: none;">
-        <h3>Current History</h3>
-        <p><?php echo $curtHist; ?></p>
+    <div id="curtHist-content" class="overview-content">
+        <?php include('current_history.php'); ?>
     </div>
 
-    <div class="overview-content" id="phyExam-content" style="display: none;">
-        <h3>Physical Examination</h3>
-        <p><?php echo $phyExam; ?></p>
+    <div id="phExam-content" class="overview-content">
+        <?php include('physical_examination.php'); ?>
     </div>
 
-    <div class="overview-content" id="impression-content" style="display: none;">
-        <h3>Impression</h3>
-        <p><?php echo $impression; ?></p>
+    <div id="impression-content" class="overview-content">
+        <?php include('impression.php'); ?>
     </div>
 
-    <div class="overview-content" id="lab-content" style="display: none;">
-        <h3>Lab</h3>
-        <p><?php echo $lab; ?></p>
+    <div id="lab-content" class="overview-content">
+        <?php include('lab.php'); ?>
     </div>
 
-    <div class="overview-content" id="imaging-content" style="display: none;">
-        <h3>Imaging</h3>
-        <p><?php echo $imaging; ?></p>
+    <div id="imaging-content" class="overview-content">
+        <?php include('imaging.php'); ?>
     </div>
 
-    <div class="overview-content" id="diagnosis-content" style="display: none;">
-        <h3>Diagnosis</h3>
-        <p><?php echo $diagnosis; ?></p>
+    <div id="diagnosis-content" class="overview-content">
+        <?php include('diagnosis.php'); ?>
     </div>
 
-    <div class="overview-content" id="prescription-content" style="display: none;">
-        <h3>Prescription</h3>
-        <p><?php echo $prescription; ?></p>
+    <div id="prescription-content" class="overview-content">
+        <?php include('prescription.php'); ?>
     </div>
 
-    <div class="overview-content" id="procedure-content" style="display: none;">
-        <h3>Procedure</h3>
-        <p><?php echo $procedure; ?></p>
+    <div id="procedure-content" class="overview-content">
+        <?php include('procedure.php'); ?>
     </div>
-
-
-
-
-
 
     <script>
         function showContent(contentId) {
             const contents = document.querySelectorAll('.overview-content');
             contents.forEach(content => {
-                if (content.id === `${contentId}-content`) {
-                    content.style.display = 'block';
-                } else {
-                    content.style.display = 'none';
-                }
+                content.classList.remove('active');
             });
+
+            const selectedContent = document.getElementById(`${contentId}-content`);
+            if (selectedContent) {
+                selectedContent.classList.add('active');
+            }
         }
     </script>
 
-
-
-
+</body>
+</html>
 
 
 <?php

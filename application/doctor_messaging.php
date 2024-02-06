@@ -21,7 +21,7 @@ include "doctor_header.php";
     <main>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary bg-gradient" id="topNavBar">
         <div class="container">
-            <a class="navbar-brand" href="./">
+            <a class="navbar-brand" href="#">
            NYALIFE WOMEN'S CLINIC MESSAGING 
             </a>
             <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

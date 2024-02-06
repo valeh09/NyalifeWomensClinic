@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Physical Examination</title>
+    <title>Past History</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -46,34 +46,54 @@
 </head>
 <body>
 
-    <h2>Physical Examination</h2>
+    <h2>Family and Medical History</h2>
 
     <!-- Form for adding new data -->
-    <form action="process_physical_examination.php" method="post" id="physicalExaminationForm">
-        <table id="physicalExaminationTable">
+    <form action="process_past_history.php" method="post" id="pastHistoryForm">
+        <!-- Family History Section -->
+        <h3>Family History</h3>
+        <table id="familyHistoryTable">
             <tr>
-                <th>Examination Area</th>
-                <th>Indicated</th>
-                <th>Not Indicated</th>
-                <th>Description</th>
+                <th></th>
+                <th>Not</th>
+                <th>No</th>
+                <th>Sure</th>
+                <th>Yes</th>
+                <th>Who</th>
             </tr>
-            <!-- Default rows -->
+            <!-- Default row -->
             <tr>
-                <td>Thyroid</td>
-                <td><input type="checkbox" name="thyroidIndicated"></td>
-                <td><input type="checkbox" name="thyroidNotIndicated"></td>
-                <td><input type="text" name="thyroidDescription"></td>
+                <td>Clotting Disorder</td>
+                <td><input type="radio" name="clottingDisorder" value="not"></td>
+                <td><input type="radio" name="clottingDisorder" value="no"></td>
+                <td><input type="radio" name="clottingDisorder" value="sure"></td>
+                <td><input type="radio" name="clottingDisorder" value="yes"></td>
+                <td><input type="text" name="clottingDisorderWho"></td>
             </tr>
-            <tr>
-                <td>Lungs</td>
-                <td><input type="checkbox" name="lungsIndicated"></td>
-                <td><input type="checkbox" name="lungsNotIndicated"></td>
-                <td><input type="text" name="lungsDescription"></td>
-            </tr>
-            <!-- Add more rows for other examination areas -->
+            <!-- Add more rows as needed -->
         </table>
 
-        <div class="add-row" onclick="addNewRow('physicalExaminationTable')">+ Add More</div>
+        <!-- Medical History Section -->
+        <h3>Medical History</h3>
+        <table id="medicalHistoryTable">
+            <tr>
+                <th>Question</th>
+                <th>No</th>
+                <th>Yes</th>
+                <th>Now</th>
+            </tr>
+            <!-- Default row -->
+            <tr>
+                <td>Anemia</td>
+                <td><input type="radio" name="anemia" value="no"></td>
+                <td><input type="radio" name="anemia" value="yes"></td>
+                <td><input type="radio" name="anemia" value="now"></td>
+            </tr>
+            <!-- Add more rows as needed -->
+        </table>
+
+        <div class="add-row" onclick="addNewRow('familyHistoryTable')">+ Add More Family History</div>
+        <div class="add-row" onclick="addNewRow('medicalHistoryTable')">+ Add More Medical History</div>
 
         <button type="submit">Add Entry</button>
     </form>
@@ -94,20 +114,9 @@
                 } else {
                     // For other cells, clear the content and update input names
                     newCell.innerHTML = "";
-                    var input;
-
-                    if (i === 1 || i === 2) {
-                        // For checkboxes
-                        input = document.createElement("input");
-                        input.type = "checkbox";
-                        input.name = cellContent.toLowerCase().replace(/\s/g, "") + "New";
-                    } else {
-                        // For text inputs
-                        input = document.createElement("input");
-                        input.type = "text";
-                        input.name = cellContent.toLowerCase().replace(/\s/g, "") + "New";
-                    }
-
+                    var input = document.createElement("input");
+                    input.type = "text";
+                    input.name = cellContent.toLowerCase().replace(/\s/g, "") + "New";
                     newCell.appendChild(input);
                 }
             }

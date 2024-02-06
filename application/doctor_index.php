@@ -291,7 +291,7 @@ include "doctor_header.php";
         ];
 
         const upcomingVisitsData = [
-            { dueDate: '2024-01-12', patientName: 'Susan', phoneNumber: '123-456-7890' }
+            { dueDate: '2024-01-12', patientName: 'Samantha Otieno', phoneNumber: '123-456-7890' }
             // Add more data as needed
         ];
 

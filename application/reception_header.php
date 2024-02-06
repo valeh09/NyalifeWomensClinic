@@ -241,7 +241,7 @@ $(document).ready(function(){
             <a href="" class="nav-link">
               <i class="fas   fa-users mr-2"></i>
               <p>
-                Patients
+                Patient registration
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
