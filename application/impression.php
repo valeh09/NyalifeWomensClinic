@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Impression</title>
+    <title>Gyn Impressions</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -36,70 +36,58 @@
         th {
             background-color: #f2f2f2;
         }
-
-        .add-row {
-            margin-top: 10px;
-            cursor: pointer;
-            color: #007bff;
-        }
     </style>
 </head>
 <body>
 
-    <h2>Impression</h2>
+    <h2>Gynecological Impressions</h2>
 
-    <!-- Form for adding new data -->
-    <form action="process_impression.php" method="post" id="impressionForm">
-        <table id="impressionTable">
-            <tr>
-                <th>Impression Item</th>
-                <th>Details</th>
-            </tr>
-            <!-- Default rows -->
-            <tr>
-                <td>Gynecological Condition</td>
-                <td><input type="text" name="gynCondition"></td>
-            </tr>
-            <tr>
-                <td>Recommendations</td>
-                <td><input type="text" name="recommendations"></td>
-            </tr>
-            <!-- Add more rows for other impression items -->
-        </table>
+    <!-- Form for adding new gynecological impressions -->
+    <form action="process_impression.php" method="post">
+        <label for="impressionType">Select Impression:</label>
+        <select id="impressionType" name="impressionType">
+            <option value="endometriosis">Endometriosis</option>
+            <option value="pcos">Polycystic Ovary Syndrome (PCOS)</option>
+            <option value="fibroids">Uterine Fibroids</option>
+            <option value="cervical-cancer">Cervical Cancer</option>
+            <!-- Add more options with real gynecological impression names -->
+        </select>
 
-        <div class="add-row" onclick="addNewRow('impressionTable')">+ Add More</div>
+        <br>
+
+        <label for="impressionDescription">Description:</label>
+        <textarea id="impressionDescription" name="impressionDescription" rows="4" cols="50"></textarea>
+
+        <br>
 
         <button type="submit">Add Impression</button>
     </form>
 
-    <script>
-        function addNewRow(tableId) {
-            var table = document.getElementById(tableId);
-            var newRow = table.insertRow(table.rows.length);
-            var defaultRow = table.rows[1]; // Assuming the default row is at index 1
-
-            for (var i = 0; i < defaultRow.cells.length; i++) {
-                var newCell = newRow.insertCell(i);
-                var cellContent = defaultRow.cells[i].innerHTML;
-
-                if (i === 0) {
-                    // For the first cell, just copy the content
-                    newCell.innerHTML = cellContent;
-                } else {
-                    // For other cells, clear the content and update input names
-                    newCell.innerHTML = "";
-                    var input;
-
-                    // For text inputs
-                    input = document.createElement("input");
-                    input.type = "text";
-                    input.name = cellContent.toLowerCase().replace(/\s/g, "") + "New";
-
-                    newCell.appendChild(input);
-                }
-            }
-        }
-    </script>
+    <!-- Table displaying dummy data of previously performed impressions -->
+    <h2>Previously Performed Impressions</h2>
+    <table>
+        <tr>
+            <th>Impression Type</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>Endometriosis</td>
+            <td>Details about the endometriosis condition.</td>
+        </tr>
+        <tr>
+            <td>Polycystic Ovary Syndrome (PCOS)</td>
+            <td>Details about the PCOS condition.</td>
+        </tr>
+        <tr>
+            <td>Uterine Fibroids</td>
+            <td>Details about the uterine fibroids condition.</td>
+        </tr>
+        <tr>
+            <td>Cervical Cancer</td>
+            <td>Details about the cervical cancer condition.</td>
+        </tr>
+        <!-- Add more rows with dummy data as needed -->
+    </table>
 
 </body>
 </html>

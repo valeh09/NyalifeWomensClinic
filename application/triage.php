@@ -1,8 +1,8 @@
 <?php
 // Sample triage data for Samantha Otieno
 $triageData = array(
-    array('Date' => '2024-03-01', 'Temperature' => '98.6°F', 'BloodPressure' => '120/80 mmHg', 'HeartRate' => '72 bpm', 'Symptoms' => 'Headache, Fatigue'),
-    array('Date' => '2024-03-15', 'Temperature' => '99.2°F', 'BloodPressure' => '118/78 mmHg', 'HeartRate' => '75 bpm', 'Symptoms' => 'Sore throat, Cough'),
+    array('Date' => '2024-03-01', 'Height' => '160 cm', 'Weight' => '55 kg', 'Temperature' => '37.0°C', 'Pulse' => '72 bpm', 'RespirationRate' => '18 bpm', 'BloodPressure' => '120/80 mmHg', 'SpO2' => '98%', 'RandomBloodSugar' => '5.5 mmol/L', 'Symptoms' => 'Headache, Fatigue'),
+    array('Date' => '2024-03-15', 'Height' => '162 cm', 'Weight' => '58 kg', 'Temperature' => '37.3°C', 'Pulse' => '75 bpm', 'RespirationRate' => '20 bpm', 'BloodPressure' => '118/78 mmHg', 'SpO2' => '97%', 'RandomBloodSugar' => '6.2 mmol/L', 'Symptoms' => 'Sore throat, Cough'),
 );
 
 // Function to format date
@@ -47,9 +47,14 @@ function formatDate($date)
         foreach ($triageData as $entry) {
             echo '<div class="triage-entry">';
             echo '<p><strong>Date:</strong> ' . formatDate($entry['Date']) . '</p>';
+            echo '<p><strong>Height:</strong> ' . $entry['Height'] . '</p>';
+            echo '<p><strong>Weight:</strong> ' . $entry['Weight'] . '</p>';
             echo '<p><strong>Temperature:</strong> ' . $entry['Temperature'] . '</p>';
+            echo '<p><strong>Pulse:</strong> ' . $entry['Pulse'] . '</p>';
+            echo '<p><strong>Respiration Rate:</strong> ' . $entry['RespirationRate'] . '</p>';
             echo '<p><strong>Blood Pressure:</strong> ' . $entry['BloodPressure'] . '</p>';
-            echo '<p><strong>Heart Rate:</strong> ' . $entry['HeartRate'] . '</p>';
+            echo '<p><strong>SpO2:</strong> ' . $entry['SpO2'] . '</p>';
+            echo '<p><strong>Random Blood Sugar:</strong> ' . $entry['RandomBloodSugar'] . '</p>';
             echo '<p><strong>Symptoms:</strong> ' . $entry['Symptoms'] . '</p>';
             echo '</div>';
         }
@@ -65,14 +70,29 @@ function formatDate($date)
             <label for="date">Date:</label>
             <input type="date" id="date" name="date" required>
 
-            <label for="temperature">Temperature:</label>
+            <label for="height">Height (cm):</label>
+            <input type="text" id="height" name="height" required>
+
+            <label for="weight">Weight (kg):</label>
+            <input type="text" id="weight" name="weight" required>
+
+            <label for="temperature">Temperature (°C):</label>
             <input type="text" id="temperature" name="temperature" required>
+
+            <label for="pulse">Pulse (bpm):</label>
+            <input type="text" id="pulse" name="pulse" required>
+
+            <label for="respirationRate">Respiration Rate (bpm):</label>
+            <input type="text" id="respirationRate" name="respirationRate" required>
 
             <label for="bloodPressure">Blood Pressure:</label>
             <input type="text" id="bloodPressure" name="bloodPressure" required>
 
-            <label for="heartRate">Heart Rate:</label>
-            <input type="text" id="heartRate" name="heartRate" required>
+            <label for="spo2">SpO2 (%):</label>
+            <input type="text" id="spo2" name="spo2" required>
+
+            <label for="randomBloodSugar">Random Blood Sugar (mmol/L):</label>
+            <input type="text" id="randomBloodSugar" name="randomBloodSugar" required>
 
             <label for="symptoms">Symptoms:</label>
             <textarea id="symptoms" name="symptoms" rows="4" required></textarea>
