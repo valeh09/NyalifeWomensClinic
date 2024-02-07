@@ -1,22 +1,22 @@
 <?php
 
-include "reception_header.php";                 
+include "admin_header.php";                 
 ?>
 
- <!-- Content Wrapper. Contains page content -->
- <div class="content-wrapper">
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0">Messaging</h1> 
-          </div><!-- /.col -->
-          
+         
+          <h1>Messaging</h1>
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
-    <head>
+  
+<head>
     <style>
      
 .container {
@@ -171,6 +171,10 @@ loadMessages();
 
 
 </script>
+
+
+
+
 
 <?php
 

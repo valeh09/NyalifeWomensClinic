@@ -10,91 +10,168 @@ include "doctor_header.php";
       <div class="container-fluid">
         <div class="row mb-2">
          
-          
+          <h1>Messaging</h1>
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
   
 
+<head>
+    <style>
+     
+.container {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px;
+}
 
-    <body class="bg-light">
-    <main>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary bg-gradient" id="topNavBar">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-           NYALIFE WOMEN'S CLINIC MESSAGING 
-            </a>
-            <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button> -->
-            <!-- <div class="collapse navbar-collapse" id="navbarNav">
-                
-            </div> -->
-           
-        </div>
-    </nav>
-    <div class="container py-3" id="page-container">
-        <?php 
-            if(isset($_SESSION['flashdata'])):
-        ?>
-        <div class="dynamic_alert alert alert-<?php echo $_SESSION['flashdata']['type'] ?>">
-        <div class="float-end"><a href="javascript:void(0)" class="text-dark text-decoration-none" onclick="$(this).closest('.dynamic_alert').hide('slow').remove()">x</a></div>
-            <?php echo $_SESSION['flashdata']['msg'] ?>
-        </div>
-        <?php unset($_SESSION['flashdata']) ?>
-        <?php endif; ?>
-        <?php
-            include $page.'.php';
-        ?>
+.user-selection, .messages {
+    width: 45%;
+    padding: 20px;
+    background-color: #add8e6; /* Light Blue */
+    border-radius: 10px;
+}
+
+h2 {
+    color: #000080; /* Navy Blue */
+}
+
+#recipientSelect {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+#messageContainer {
+    height: 300px;
+    overflow-y: scroll;
+    border: 1px solid #000080; /* Navy Blue */
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.message {
+    margin-bottom: 10px;
+}
+
+    </style>
+</head>
+
+
+
+<div class="container">
+    <div class="user-selection">
+        <h2>Select Recipient</h2>
+        <select id="recipientSelect" onchange="loadMessages()">
+            <?php
+          include "config.php";
+            $result = $conn->query("SELECT id, first_name FROM staff");
+
+            while ($row = $result->fetch_assoc()) {
+                echo "<option value='{$row['id']}'>{$row['first_name']}</option>";
+            }
+
+            $conn->close();
+            ?>
+        </select>
     </div>
-    </main>
-    <div class="modal fade" id="uni_modal" role='dialog' data-bs-backdrop="static" data-bs-keyboard="true">
-        <div class="modal-dialog modal-md modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header py-2">
-            <h5 class="modal-title"></h5>
+
+    <div class="messages">
+        <h2>Messages</h2>
+        <div id="messageContainer">
+            <!-- Messages will be loaded here using JavaScript -->
         </div>
-        <div class="modal-body">
-        </div>
-        <div class="modal-footer py-1">
-            <button type="button" class="btn btn-sm rounded-0 btn-primary" id='submit' onclick="$('#uni_modal form').submit()">Save</button>
-            <button type="button" class="btn btn-sm rounded-0 btn-secondary" data-bs-dismiss="modal">Close</button>
-        </div>
-        </div>
-        </div>
-    </div>
-    <div class="modal fade" id="uni_modal_secondary" role='dialog' data-bs-backdrop="static" data-bs-keyboard="true">
-        <div class="modal-dialog modal-md modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header py-2">
-            <h5 class="modal-title"></h5>
-        </div>
-        <div class="modal-body">
-        </div>
-        <div class="modal-footer py-1">
-            <button type="button" class="btn btn-sm rounded-0 btn-primary" id='submit' onclick="$('#uni_modal_secondary form').submit()">Save</button>
-            <button type="button" class="btn btn-sm rounded-0 btn-secondary" data-bs-dismiss="modal">Close</button>
-        </div>
-        </div>
-        </div>
-    </div>
-    <div class="modal fade" id="confirm_modal" role='dialog'>
-        <div class="modal-dialog modal-md modal-dialog-centered" role="document">
-        <div class="modal-content rounded-0">
-            <div class="modal-header py-2">
-            <h5 class="modal-title">Confirmation</h5>
-        </div>
-        <div class="modal-body">
-            <div id="delete_content"></div>
-        </div>
-        <div class="modal-footer py-1">
-            <button type="button" class="btn btn-primary btn-sm rounded-0" id='confirm' onclick="">Continue</button>
-            <button type="button" class="btn btn-secondary btn-sm rounded-0" data-bs-dismiss="modal">Close</button>
-        </div>
-        </div>
+
+        <div class="send-message">
+            <h2>Send Message</h2>
+            <form onsubmit="sendMessage(); return false;">
+                <textarea id="messageInput" placeholder="Type your message here"></textarea>
+                <button type="submit">Send</button>
+            </form>
         </div>
     </div>
-</body>
+</div>
+
+
+
+
+
+<script>
+   function loadMessages() {
+    const recipientId = document.getElementById('recipientSelect').value;
+    const messageContainer = document.getElementById('messageContainer');
+
+    // Fetch and display received messages
+    fetchReceivedMessages(recipientId)
+        .then(messages => {
+            messageContainer.innerHTML = '';
+            messages.forEach(message => {
+                appendMessage(message.message, 'received', message.timestamp);
+            });
+        })
+        .catch(error => {
+            console.error('Error loading messages:', error);
+        });
+}
+
+function fetchReceivedMessages(recipientId) {
+    return new Promise((resolve, reject) => {
+        // Replace with actual AJAX or fetch API call to retrieve received messages from the database
+        fetch('get_messages.php?recipient_id=' + recipientId)
+            .then(response => response.json())
+            .then(data => resolve(data))
+            .catch(error => reject(error));
+    });
+}
+
+function sendMessage() {
+    const recipientId = document.getElementById('recipientSelect').value;
+    const messageInput = document.getElementById('messageInput');
+    const messageText = messageInput.value.trim();
+
+    if (messageText !== '') {
+        // Replace with actual AJAX or fetch API call to send the message to the database
+        fetch('send_message.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                recipient_id: recipientId,
+                message: messageText,
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Append the sent message to the message container
+            appendMessage(messageText, 'sent', data.timestamp);
+            // Clear the message input
+            messageInput.value = '';
+        })
+        .catch(error => console.error('Error sending message:', error));
+    }
+}
+
+function appendMessage(message, messageType, timestamp) {
+    const messageContainer = document.getElementById('messageContainer');
+    const messageElement = document.createElement('div');
+    messageElement.className = messageType === 'sent' ? 'sent-message' : 'received-message';
+    messageElement.innerHTML = `<p>${message}</p><span class="timestamp">${formatTimestamp(timestamp)}</span>`;
+    messageContainer.appendChild(messageElement);
+}
+
+function formatTimestamp(timestamp) {
+    const date = new Date(timestamp);
+    const options = { hour: 'numeric', minute: 'numeric', second: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+}
+
+// Load messages for the default selected recipient on page load
+loadMessages();
+
+
+</script>
+
 
 
 
