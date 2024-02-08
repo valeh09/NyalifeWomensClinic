@@ -169,6 +169,43 @@ function formatTimestamp(timestamp) {
 // Load messages for the default selected recipient on page load
 loadMessages();
 
+let lastTimestamp = 0;
+
+function loadMessages() {
+    const recipientId = document.getElementById('recipientSelect').value;
+    const messageContainer = document.getElementById('messageContainer');
+
+    // Fetch and display received messages
+    fetchReceivedMessages(recipientId)
+        .then(messages => {
+            const newMessages = messages.filter(message => message.timestamp > lastTimestamp);
+            if (newMessages.length > 0) {
+                // Notify the user about new messages
+                notifyUser();
+            }
+
+            messageContainer.innerHTML = '';
+            messages.forEach(message => {
+                appendMessage(message.message, 'received', message.timestamp);
+            });
+
+            // Update the last timestamp to the latest message
+            if (messages.length > 0) {
+                lastTimestamp = messages[messages.length - 1].timestamp;
+            }
+        })
+        .catch(error => {
+            console.error('Error loading messages:', error);
+        });
+}
+
+function notifyUser() {
+    // Implement your notification logic here
+    // For simplicity, an alert is used in this example
+    alert('New Message!');
+}
+
+
 
 </script>
 

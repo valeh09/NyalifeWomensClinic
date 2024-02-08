@@ -59,12 +59,23 @@ h2 {
 
 
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Messaging System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
 <div class="container">
     <div class="user-selection">
         <h2>Select Recipient</h2>
         <select id="recipientSelect" onchange="loadMessages()">
+            <!-- Populate this dropdown with staff names from your database -->
             <?php
-          include "config.php";
+           include "config.php";
             $result = $conn->query("SELECT id, first_name FROM staff");
 
             while ($row = $result->fetch_assoc()) {
@@ -92,29 +103,49 @@ h2 {
     </div>
 </div>
 
+<script src="scripts.js"></script>
+</body>
+</html>
+
+</div>
+
 
 
 
 
 <script>
-   function loadMessages() {
-    const recipientId = document.getElementById('recipientSelect').value;
+ let recipientId = 0;
+let lastTimestamp = 0;
+
+function loadMessages() {
+    recipientId = document.getElementById('recipientSelect').value;
     const messageContainer = document.getElementById('messageContainer');
 
     // Fetch and display received messages
-    fetchReceivedMessages(recipientId)
+    fetchReceivedMessages()
         .then(messages => {
+            const newMessages = messages.filter(message => message.timestamp > lastTimestamp);
+            if (newMessages.length > 0) {
+                // Notify the user about new messages
+                notifyUser();
+            }
+
             messageContainer.innerHTML = '';
             messages.forEach(message => {
-                appendMessage(message.message, 'received', message.timestamp);
+                appendMessage(message.message, 'received', message.timestamp, message.sender);
             });
+
+            // Update the last timestamp to the latest message
+            if (messages.length > 0) {
+                lastTimestamp = messages[messages.length - 1].timestamp;
+            }
         })
         .catch(error => {
             console.error('Error loading messages:', error);
         });
 }
 
-function fetchReceivedMessages(recipientId) {
+function fetchReceivedMessages() {
     return new Promise((resolve, reject) => {
         // Replace with actual AJAX or fetch API call to retrieve received messages from the database
         fetch('get_messages.php?recipient_id=' + recipientId)
@@ -125,7 +156,6 @@ function fetchReceivedMessages(recipientId) {
 }
 
 function sendMessage() {
-    const recipientId = document.getElementById('recipientSelect').value;
     const messageInput = document.getElementById('messageInput');
     const messageText = messageInput.value.trim();
 
@@ -144,7 +174,7 @@ function sendMessage() {
         .then(response => response.json())
         .then(data => {
             // Append the sent message to the message container
-            appendMessage(messageText, 'sent', data.timestamp);
+            appendMessage(messageText, 'sent', data.timestamp, 'You');
             // Clear the message input
             messageInput.value = '';
         })
@@ -152,11 +182,11 @@ function sendMessage() {
     }
 }
 
-function appendMessage(message, messageType, timestamp) {
+function appendMessage(message, messageType, timestamp, sender) {
     const messageContainer = document.getElementById('messageContainer');
     const messageElement = document.createElement('div');
     messageElement.className = messageType === 'sent' ? 'sent-message' : 'received-message';
-    messageElement.innerHTML = `<p>${message}</p><span class="timestamp">${formatTimestamp(timestamp)}</span>`;
+    messageElement.innerHTML = `<p>${message}</p><span class="timestamp">${formatTimestamp(timestamp)}</span><span class="sender">${sender}</span>`;
     messageContainer.appendChild(messageElement);
 }
 
@@ -166,9 +196,17 @@ function formatTimestamp(timestamp) {
     return date.toLocaleDateString('en-US', options);
 }
 
+function notifyUser() {
+    // Implement your notification logic here
+    // For simplicity, an alert is used in this example
+    alert('New Message!');
+}
+
+// Periodically check for new messages (every 30 seconds in this example)
+setInterval(loadMessages, 30000);
+
 // Load messages for the default selected recipient on page load
 loadMessages();
-
 
 </script>
 

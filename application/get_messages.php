@@ -4,10 +4,11 @@ include "config.php";
 $recipientId = $_GET['recipient_id'];
 
 $result = $conn->query("
-    SELECT message, timestamp
-    FROM messages
-    WHERE recipient_id = '$recipientId'
-    ORDER BY timestamp ASC
+    SELECT m.message, m.timestamp, s.first_name as sender
+    FROM messages m
+    JOIN staff s ON m.sender_id = s.id
+    WHERE m.recipient_id = '$recipientId'
+    ORDER BY m.timestamp ASC
 ");
 
 $messages = array();
