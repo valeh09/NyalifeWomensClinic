@@ -11,23 +11,28 @@ include "doctor_header.php";
        
 
         .form-container {
-            max-width: 400px;
-            margin: 20px auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        max-width: 100%;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         label {
-            display: block;
-            margin-bottom: 8px;
+            flex: 1;
+        margin-bottom: 8px;
+        font-weight: bold;
+        font-size: 0.8rem;
         }
 
         input, select {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 15px;
-            box-sizing: border-box;
+            flex: 2;
+        padding: 8px;
+        box-sizing: border-box;
+        font-size: 0.8rem;
         }
 
         button {
@@ -56,14 +61,7 @@ include "doctor_header.php";
     <!-- /.content-header -->
 
 <?php
-// Replace these values with your actual database connection details
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "nyalife";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+  include "config.php";
 
 // Check connection
 if ($conn->connect_error) {

@@ -47,17 +47,12 @@ include "doctor_header.php";
     </div>
 
 <?php
-// Replace these values with your actual database connection details
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "nyalife";
+  include "config.php";
 
 // Get the patient ID from the URL parameter
 $patientID = $_GET['id'];
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+
 
 // Check connection
 if ($conn->connect_error) {

@@ -97,13 +97,7 @@
 
         </div>
 <?php
-// Establish a connection to your MySQL database
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "nyalife";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
+  include "config.php";
 
 // Check connection
 if ($conn->connect_error) {

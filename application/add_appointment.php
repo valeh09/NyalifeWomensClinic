@@ -5,49 +5,64 @@ include "reception_header.php";
 
 <head>
  
-    <title>Add Appointment</title>
+   
     <style>
-       
+    .container {
+        max-width: 100%;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
 
-        .container {
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+    h1 {
+        font-size: 1.5rem;
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+    }
 
-        h2 {
-            text-align: center;
-            color: #333;
-        }
+    form {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
 
-        form {
-            display: flex;
-            flex-direction: column;
-        }
+    label {
+        flex: 1;
+        margin-bottom: 8px;
+        font-weight: bold;
+        font-size: 0.8rem;
+    }
 
-        label {
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
+    input,
+    select {
+        flex: 2;
+        padding: 8px;
+        box-sizing: border-box;
+        font-size: 0.8rem;
+    }
 
-        input, select {
-            padding: 10px;
-            margin-bottom: 15px;
-            box-sizing: border-box;
-        }
+    button {
+        flex: 1;
+        background-color: #007BFF;
+        color: white;
+        padding: 8px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 0.8rem;
+    }
+</style>
 
-        button {
-            background-color: #007BFF;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-    </style>
+
+
+
+
+
+
+
 </head>
  <!-- Content Wrapper. Contains page content -->
  <div class="content-wrapper">
@@ -96,12 +111,7 @@ include "reception_header.php";
         <label for="consultantDoctor">ConsultantDoctor:</label>
         <input type="text" name="consultantDoctor" required>
 
-        <label for="appointmentStatus">AppointmentStatus:</label>
-        <select name="appointmentStatus" required>
-            <option value="Scheduled">Scheduled</option>
-            <option value="Completed">Completed</option>
-            <option value="Cancelled">Cancelled</option>
-        </select>
+      
 
         <button type="submit">Add Appointment</button>
     </form>

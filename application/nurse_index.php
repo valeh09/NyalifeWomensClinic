@@ -46,13 +46,7 @@ include "nurse_header.php";
               <div class="inner">
                 <h3><?php
               
-              
-  
-              // localhost is localhost 
-              // servername is root 
-              // password is empty 
-              // database name is database 
-              $conn = mysqli_connect("localhost","root","","nyalife"); 
+              include "config.php";
                 
                   // SQL query to display row count 
                   // in building table 
@@ -88,12 +82,7 @@ include "nurse_header.php";
                 <h3><?php
               
               
-  
-              // localhost is localhost 
-              // servername is root 
-              // password is empty 
-              // database name is database 
-              $conn = mysqli_connect("localhost","root","","nyalife"); 
+              include "config.php";
                 
                   // SQL query to display row count 
                   // in building table 

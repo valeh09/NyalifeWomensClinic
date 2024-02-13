@@ -22,14 +22,7 @@ include "booking_header.php";
       <div class="container-fluid">
      
       <?php
-// Replace these values with your actual database connection details
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "nyalife";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+  include "config.php";
 
 // Check connection
 if ($conn->connect_error) {

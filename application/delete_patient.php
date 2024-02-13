@@ -1,6 +1,6 @@
 <?php
 
-include("database/connect.php");
+include "config.php";
 
 // Get the patient ID from the URL parameter
 $patientID = $_GET['id'];

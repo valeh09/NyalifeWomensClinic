@@ -18,21 +18,16 @@ include "admin_header.php";
     </div>
 
   <style>
-    body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-}
 
 .form-container {
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    max-width: 100%;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 h2 {
@@ -41,25 +36,29 @@ h2 {
 }
 
 label {
-    display: block;
-    margin: 10px 0 5px;
-}
-
-input, select {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    box-sizing: border-box;
-}
+        flex: 1;
+        margin-bottom: 8px;
+        font-weight: bold;
+        font-size: 0.8rem;
+    }
+    input,
+    select {
+        flex: 2;
+        padding: 8px;
+        box-sizing: border-box;
+        font-size: 0.8rem;
+    }
 
 input[type="submit"] {
-    background-color: #4caf50;
-    color: #fff;
-    cursor: pointer;
-}
-
-input[type="submit"]:hover {
-    background-color: #45a049;
+    flex: 1;
+        background-color: #007BFF;
+        color: white;
+        padding: 8px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 0.8rem;
 }
 
   </style>
@@ -69,14 +68,7 @@ input[type="submit"]:hover {
 
 
        <?php
-// Replace these values with your actual database connection details
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "nyalife";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+  include "config.php";
 
 // Check connection
 if ($conn->connect_error) {
@@ -221,7 +213,6 @@ $conn->close();
         <input type="text" name="national_id" >
 
         <label for="profile_picture">Profile Picture:</label>
-        <input type="file" name="profile_picture" accept="image/*" >
 
         <label for="password">Password:</label>
         <input type="password" name="password" required>

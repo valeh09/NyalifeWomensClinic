@@ -4,37 +4,56 @@ include "reception_header.php";
 ?>
 <head>
    
-    <style>
- body {
-            font-family: Arial, sans-serif;
-        }
+<style>
+   .container {
+        max-width: 100%;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
 
-        .form-container {
-            max-width: 400px;
-            margin: 20px auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
+    h1 {
+        font-size: 1.5rem;
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+    }
 
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
+    form {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
 
-        input, select, textarea {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-            box-sizing: border-box;
-        }
+    label {
+        flex: 1;
+        margin-bottom: 8px;
+        font-weight: bold;
+        font-size: 0.8rem;
+    }
 
-        input[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-            cursor: pointer;
-        }
-        </style>
+    input,
+    select {
+        flex: 2;
+        padding: 8px;
+        box-sizing: border-box;
+        font-size: 0.8rem;
+    }
+
+    input[type="submit"] {
+        background-color: #007BFF;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 0.9rem;
+    }
+</style>
+
+
     
 </head>
 <!-- Content Wrapper. Contains page content -->
@@ -54,13 +73,7 @@ include "reception_header.php";
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Replace these values with your actual database connection details
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "nyalife";
-
-    // Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    include "config.php";
 
     // Check connection
     if ($conn->connect_error) {

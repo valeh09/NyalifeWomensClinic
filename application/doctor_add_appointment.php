@@ -9,12 +9,13 @@ include "doctor_header.php";
         
 
         .container {
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+        max-width: 100%;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
 
         h2 {
             text-align: center;
@@ -22,20 +23,25 @@ include "doctor_header.php";
         }
 
         form {
-            display: flex;
-            flex-direction: column;
-        }
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
 
-        label {
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
+    label {
+        flex: 1;
+        margin-bottom: 8px;
+        font-weight: bold;
+        font-size: 0.8rem;
+    }
 
-        input, select {
-            padding: 10px;
-            margin-bottom: 15px;
-            box-sizing: border-box;
-        }
+    input,
+    select {
+        flex: 2;
+        padding: 8px;
+        box-sizing: border-box;
+        font-size: 0.8rem;
+    }
 
         button {
             background-color: #007BFF;
@@ -94,12 +100,7 @@ include "doctor_header.php";
         <label for="consultantDoctor">ConsultantDoctor:</label>
         <input type="text" name="consultantDoctor" required>
 
-        <label for="appointmentStatus">AppointmentStatus:</label>
-        <select name="appointmentStatus" required>
-            <option value="Scheduled">Scheduled</option>
-            <option value="Completed">Completed</option>
-            <option value="Cancelled">Cancelled</option>
-        </select>
+     
 
         <button type="submit">Add Appointment</button>
     </form>

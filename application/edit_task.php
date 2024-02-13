@@ -70,17 +70,12 @@ include "reception_header.php";
     <!-- /.content-header -->
 
     <?php
-// Replace these values with your actual database connection details
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "nyalife";
+  include "config.php";
 
 // Get the task ID from the URL parameter
 $taskID = $_GET['id'];
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+
 
 // Check connection
 if ($conn->connect_error) {

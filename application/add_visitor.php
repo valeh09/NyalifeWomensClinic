@@ -6,65 +6,71 @@ include "reception_header.php";
 
 <head>
    
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
+<style>
+    .container {
+        max-width: 100%;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
 
-        .form-container {
-            max-width: 400px;
-            margin: 20px auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
+    h1 {
+        font-size: 1.5rem;
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+    }
 
-        h2 {
-            margin-bottom: 20px;
-        }
+    form {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
 
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
+    label {
+        flex: 1;
+        margin-bottom: 8px;
+        font-weight: bold;
+        font-size: 0.8rem;
+    }
 
-        input, select {
-            width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-            margin-bottom: 10px;
-        }
+    input,
+    select {
+        flex: 2;
+        padding: 8px;
+        box-sizing: border-box;
+        font-size: 0.8rem;
+    }
 
-        textarea {
-            width: 100%;
-            height: 100px;
-            padding: 8px;
-            box-sizing: border-box;
-            margin-bottom: 10px;
-        }
-
-        input[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-    </style>
+    input[type="submit"] {
+        background-color: #007BFF;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 0.9rem;
+    }
+</style>
 </head>
-<body>
-
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Add Visitor</h1> 
+          </div><!-- /.col -->
+          
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
 <?php
-// Replace these values with your actual database connection details
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "nyalife";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+  include "config.php";
 
 // Check connection
 if ($conn->connect_error) {
@@ -100,7 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <div class="form-container">
-    <h2>Add New Visitor</h2>
+
     <form action="add_visitor.php" method="post">
         <label for="purpose">Purpose:</label>
         <input type="text" name="purpose" required>
@@ -138,7 +144,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </form>
 </div>
 
-</body>
 
 
 

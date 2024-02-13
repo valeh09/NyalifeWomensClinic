@@ -5,50 +5,65 @@ include "admin_header.php";
 <head>
    
     <style>
- body {
-            font-family: Arial, sans-serif;
-        }
+
 
         .form-container {
-            max-width: 400px;
-            margin: 20px auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        max-width: 100%;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         label {
-            display: block;
-            margin-bottom: 5px;
-        }
+        flex: 1;
+        margin-bottom: 8px;
+        font-weight: bold;
+        font-size: 0.8rem;
+    }
 
         input, select, textarea {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-            box-sizing: border-box;
+            flex: 2;
+        padding: 8px;
+        box-sizing: border-box;
+        font-size: 0.8rem;
         }
 
         input[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-            cursor: pointer;
-        }
+            flex: 1;
+        background-color: #007BFF;
+        color: white;
+        padding: 8px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 0.8rem;
+    }
+        
         </style>
     
 </head>
-<body>
+ <!-- Content Wrapper. Contains page content -->
+ <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Add New Patient</h1> 
+          </div><!-- /.col -->
+          
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
         <?php
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Replace these values with your actual database connection details
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "nyalife";
-
-    // Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    include "config.php";
 
     // Check connection
     if ($conn->connect_error) {
@@ -93,7 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <div class="form-container">
-    <h2>Add Patient Information</h2>
+
     <form action="add_patient.php" method="post">
         <label for="first_name">First Name:</label>
         <input type="text" name="first_name" required>

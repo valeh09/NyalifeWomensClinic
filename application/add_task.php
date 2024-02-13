@@ -10,25 +10,26 @@ include "reception_header.php";
     <style>
        
 
-        .form-container {
-            max-width: 400px;
-            margin: 20px auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
+        .form-container  {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-        }
+    label {
+        flex: 1;
+        margin-bottom: 8px;
+        font-weight: bold;
+        font-size: 0.8rem;
+    }
 
-        input, select {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 15px;
-            box-sizing: border-box;
-        }
+    input,
+    select {
+        flex: 2;
+        padding: 8px;
+        box-sizing: border-box;
+        font-size: 0.8rem;
+    }
 
         button {
             background-color: #4CAF50;
@@ -56,14 +57,7 @@ include "reception_header.php";
     <!-- /.content-header -->
 
 <?php
-// Replace these values with your actual database connection details
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "nyalife";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+  include "config.php";
 
 // Check connection
 if ($conn->connect_error) {
