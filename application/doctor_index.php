@@ -228,6 +228,8 @@ include "doctor_header.php";
 </head>
 <body>
 
+
+
     <div class="choices-container">
         <div class="choice-column" onclick="showTable('outpatientsTable'); setActiveChoice(this);">Outpatients</div>
         <div class="choice-column" onclick="showTable('inpatientsTable'); setActiveChoice(this);">Inpatients</div>
@@ -264,6 +266,7 @@ include "doctor_header.php";
     </div>
 
     <script>
+
         // Sample data for demonstration
         const outpatientsData = [
             { arrivalTime: '2024-01-11 09:00', patientName: 'Samantha Otieno', waitingTime: '0h:15m' },

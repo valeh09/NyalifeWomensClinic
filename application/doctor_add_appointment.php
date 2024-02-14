@@ -94,11 +94,24 @@ include "doctor_header.php";
         <label for="appointmentTime">AppointmentTime:</label>
         <input type="time" name="appointmentTime" required>
 
-        <label for="service">Service:</label>
+        <label for="service"></label>
         <input type="text" name="service" required>
 
+        <label for="service">Service:</label>
+        <select name="service" required>
+            <option value="Obstetrics">Obstetrics</option>
+            <option value="Gynecology">Gynecology</option>
+            <option value="Teens Health">Teens Health</option>
+            <option value="Surgeries">Surgeries</option>
+            <option value="In Office Procedures">In Office Procedures</option>
+        </select>
+
+   
         <label for="consultantDoctor">ConsultantDoctor:</label>
-        <input type="text" name="consultantDoctor" required>
+        <select name="consultantDoctor" required>
+            <option value="Dr Schola Airo">Dr Schola Airo</option>
+       
+        </select>
 
      
 

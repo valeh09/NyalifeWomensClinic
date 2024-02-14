@@ -81,7 +81,7 @@
   </style>
 
   <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-info elevation-4">
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="" class="brand-link">
       <img src="dist/img/logo.png" alt="" class="logo" width="200" height="100"  style="opacity: .8">

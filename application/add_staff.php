@@ -185,7 +185,7 @@ $conn->close();
 
         <label for="department">Department:</label>
         <select name="department" required>
-            <option value="Obstetrics and Gynaecology">Obstetrics and Gynaecology</option>
+            <option value="Obstetrics and Gynecology">Obstetrics and Gynecology</option>
             <option value="Front Desk">Front Desk</option>
             <option value="Radiography">Radiography</option>
             <option value="Billing">Billing</option>
