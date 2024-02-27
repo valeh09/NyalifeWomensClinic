@@ -1,24 +1,10 @@
  
 <?php
-
+include "config.php";
 include "doctor_header.php";                 
 ?>
 
 
-<?php
-
-        // database connection
-        require_once "config.php";
-
-         $currentDay = date( 'Y-m-d', strtotime("today") );
-         $tomarrow = date( 'Y-m-d', strtotime("+1 day") );
-
-         $today_leave = 0;
-         $tomarrow_leave = 0;
-         $this_week = 0;
-         $next_week = 0;
-            $i = 1;
-?>
 
  <!-- Content Wrapper. Contains page content -->
  <div class="content-wrapper">
@@ -173,13 +159,11 @@ include "doctor_header.php";
  
           
           <div>
-       
-     
-<head>
-  
+         
 
+          <!DOCTYPE html>
+<html lang="en">
 <head>
- 
     <style>
         /* Your existing CSS styles go here */
         .tables-container {
@@ -193,7 +177,6 @@ include "doctor_header.php";
             width: 100%;
             border-collapse: collapse;
             margin-right: 10px;
-         
         }
 
         table, th, td {
@@ -206,7 +189,7 @@ include "doctor_header.php";
         }
 
         th {
-          background-color: #A9A9A9;
+            background-color: #A9A9A9;
         }
 
         .choices-container {
@@ -224,119 +207,150 @@ include "doctor_header.php";
         .active-choice {
             background-color: #A9A9A9;
         }
+
+        /* Additional style for clickable rows */
+        tbody tr {
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
 
+<?php
+require 'config.php';
 
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
-    <div class="choices-container">
-        <div class="choice-column" onclick="showTable('outpatientsTable'); setActiveChoice(this);">Outpatients</div>
-        <div class="choice-column" onclick="showTable('inpatientsTable'); setActiveChoice(this);">Inpatients</div>
-        <div class="choice-column" onclick="showTable('upcomingVisitsTable'); setActiveChoice(this);">Upcoming Visits</div>
-    </div>
+// Sample SQL queries to retrieve data for each table
+$outpatientsQuery = "SELECT time_added, FirstName, TIMESTAMPDIFF(MINUTE, time_added, NOW()) AS waiting_time FROM patients WHERE type = 'Outpatient'";
+$inpatientsQuery = "SELECT time_added, FirstName, TIMESTAMPDIFF(MINUTE, time_added, NOW()) AS waiting_time FROM patients WHERE type = 'Inpatient'";
+$upcomingVisitsQuery = "SELECT AppointmentDate, PatientName, TIMESTAMPDIFF(MINUTE, AppointmentDate, NOW()) AS waiting_time FROM appointments WHERE AppointmentStatus = 'Scheduled'";
 
-    <div class="tables-container">
-        <table id="outpatientsTable">
-            <tr>
-                <th>Arrival Time</th>
-                <th>Patient Name</th>
-                <th>Waiting Time</th>
-            </tr>
-            <!-- Outpatients table rows will be dynamically added here using JavaScript -->
-        </table>
+// Function to execute query and return data as an associative array
+function fetchData($conn, $query) {
+    $result = $conn->query($query);
 
-        <table id="inpatientsTable">
-            <tr>
-                <th>Admission Time</th>
-                <th>Patient Name</th>
-                <th>Time Since Admission</th>
-            </tr>
-            <!-- Inpatients table rows will be dynamically added here using JavaScript -->
-        </table>
+    if ($result->num_rows > 0) {
+        $data = array();
+        while ($row = $result->fetch_assoc()) {
+            $data[] = $row;
+        }
+        return $data;
+    } else {
+        return array();
+    }
+}
 
-        <table id="upcomingVisitsTable">
-            <tr>
-                <th>Due Date</th>
-                <th>Patient Name</th>
-                <th>Phone Number</th>
-            </tr>
-            <!-- Upcoming visits table rows will be dynamically added here using JavaScript -->
-        </table>
-    </div>
+// Fetch data for each table
+$outpatientsData = fetchData($conn, $outpatientsQuery);
+$inpatientsData = fetchData($conn, $inpatientsQuery);
+$upcomingVisitsData = fetchData($conn, $upcomingVisitsQuery);
 
-    <script>
+// Close database connection
+$conn->close();
+?>
 
-        // Sample data for demonstration
-        const outpatientsData = [
-            { arrivalTime: '2024-01-11 09:00', patientName: 'Samantha Otieno', waitingTime: '0h:15m' },
-            { arrivalTime: '2024-01-11 09:30', patientName: 'Patricia Achieng', waitingTime: '1h:30m' }
-            // Add more data as needed
-        ];
+<div class="choices-container">
+    <div class="choice-column" onclick="showTable('outpatientsTable'); setActiveChoice(this);">Outpatients</div>
+    <div class="choice-column" onclick="showTable('inpatientsTable'); setActiveChoice(this);">Inpatients</div>
+    <div class="choice-column" onclick="showTable('upcomingVisitsTable'); setActiveChoice(this);">Upcoming Visits</div>
+</div>
 
-        const inpatientsData = [
-            { admissionTime: '2024-01-10 15:45', patientName: 'Mary Johnson', timeSinceAdmission: '18h:30m' },
-            { admissionTime: '2024-01-11 08:00', patientName: 'Robert Brown', timeSinceAdmission: '1h:15m' }
-            // Add more data as needed
-        ];
+<div class="tables-container">
+    <table id="outpatientsTable">
+        <!-- Table headings will be dynamically added here using JavaScript -->
+    </table>
 
-        const upcomingVisitsData = [
-            { dueDate: '2024-01-12', patientName: 'Samantha Otieno', phoneNumber: '123-456-7890' }
-            // Add more data as needed
-        ];
+    <table id="inpatientsTable">
+        <!-- Table headings will be dynamically added here using JavaScript -->
+    </table>
 
-        // Function to populate a table with data
-        function populateTable(tableId, data) {
-            const table = document.getElementById(tableId);
-            data.forEach(item => {
-                const row = table.insertRow();
-                for (const key in item) {
-                    const cell = row.insertCell();
+    <table id="upcomingVisitsTable">
+        <!-- Table headings will be dynamically added here using JavaScript -->
+    </table>
+</div>
+
+<script>
+    // Function to populate a table with data
+    function populateTable(tableId, data) {
+        const table = document.getElementById(tableId);
+        table.innerHTML = ''; // Clear existing content
+
+        if (data.length === 0) {
+            return; // No data, nothing to populate
+        }
+
+        // Add table headings
+        const headingsRow = table.insertRow();
+        for (const key in data[0]) {
+            const th = document.createElement('th');
+            th.textContent = key;
+            headingsRow.appendChild(th);
+        }
+
+        // Add table data
+        data.forEach(item => {
+            const row = table.insertRow();
+            for (const key in item) {
+                const cell = row.insertCell();
+                // Display waiting time in hours and minutes
+                if (key === 'waiting_time') {
+                    const hours = Math.floor(item[key] / 60);
+                    const minutes = item[key] % 60;
+                    cell.textContent = `${hours} hours ${minutes} minutes`;
+                } else {
                     cell.textContent = item[key];
                 }
-                // Add click event to each row for patient selection
-                row.addEventListener('click', function() {
-                    goToPatientOverview(item.patientName);
-                });
-            });
-        }
+            }
 
-        // Function to show a specific table and hide others
-        function showTable(tableId) {
-            const tables = document.querySelectorAll('table');
-            tables.forEach(table => {
-                if (table.id === tableId) {
-                    table.style.display = 'table';
-                } else {
-                    table.style.display = 'none';
-                }
-            });
-        }
+            row.onclick = function () {
+    console.log('PatientID:', item['PatientID']); // Debugging line
+    window.location.href = 'patient_overview.php?patient_id=' + item['PatientID'];
+};
+        });
+    }
 
-        // Function to set the active choice and highlight it
-        function setActiveChoice(choiceElement) {
-            const choices = document.querySelectorAll('.choices-container .choice-column, h2');
-            choices.forEach(choice => {
-                choice.classList.remove('active-choice');
-            });
-            choiceElement.classList.add('active-choice');
-        }
+    // Function to show a specific table and hide others
+    function showTable(tableId) {
+        const tables = document.querySelectorAll('table');
+        tables.forEach(table => {
+            if (table.id === tableId) {
+                table.style.display = 'table';
+            } else {
+                table.style.display = 'none';
+            }
+        });
+    }
 
-        // Function to navigate to patient overview page with the selected patient's name
-        function goToPatientOverview(patientName) {
-            window.location.href = `patient_overview.php?name=${encodeURIComponent(patientName)}`;
-        }
+    // Function to set the active choice and highlight it
+    function setActiveChoice(choiceElement) {
+        const choices = document.querySelectorAll('.choices-container .choice-column');
+        choices.forEach(choice => {
+            choice.classList.remove('active-choice');
+        });
+        choiceElement.classList.add('active-choice');
+    }
 
-        // Populate tables with sample data
-        populateTable('outpatientsTable', outpatientsData);
-        populateTable('inpatientsTable', inpatientsData);
-        populateTable('upcomingVisitsTable', upcomingVisitsData);
+    // Replace the sample data with fetched PHP data
+    const outpatientsData = <?php echo json_encode($outpatientsData); ?>;
+    const inpatientsData = <?php echo json_encode($inpatientsData); ?>;
+    const upcomingVisitsData = <?php echo json_encode($upcomingVisitsData); ?>;
 
-        // Show the first table by default and set it as active
-        showTable('outpatientsTable');
-        setActiveChoice(document.querySelector('.choices-container .choice-column'));
-    </script>
+    // Populate tables with fetched PHP data
+    populateTable('outpatientsTable', outpatientsData);
+    populateTable('inpatientsTable', inpatientsData);
+    populateTable('upcomingVisitsTable', upcomingVisitsData);
 
+    // Show the first table by default and set it as active
+    showTable('outpatientsTable');
+    setActiveChoice(document.querySelector('.choices-container .choice-column'));
+</script>
+
+</body>
+</html>
 
 
  

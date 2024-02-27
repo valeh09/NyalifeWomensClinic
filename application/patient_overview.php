@@ -1,81 +1,69 @@
 <?php
+include "doctor_header.php";
 
-include "doctor_header.php";                 
+// Check if patient_id is provided in the URL
+if (isset($_GET['patient_id'])) {
+    $patient_id = $_GET['patient_id'];
+
+   require "config.php";
+
+    // Check the connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // Fetch patient data from the database using prepared statement
+    $patientQuery = "SELECT FirstName, LastName, DOB, Gender, Address, PhoneNumber FROM patients WHERE PatientID = ?";
+    
+    // Prepare the statement
+    $stmt = $conn->prepare($patientQuery);
+
+    // Bind the parameters
+    $stmt->bind_param("i", $patient_id);
+
+    // Execute the statement
+    $stmt->execute();
+
+    // Bind the result variables
+    $stmt->bind_result($FirstName, $LastName, $dob, $gender, $address, $phoneNumber);
+
+    // Fetch the result
+    $stmt->fetch();
+
+    // Close the statement
+    $stmt->close();
+
+    // Close the connection
+    $conn->close();
+
+    // Check if data was fetched successfully
+    if (isset($firstName)) {
+        // Display patient's name
+        $patientData = $FirstName . ' ' . $LastName;
+    } else {
+        // Handle the case when patient data is not found
+        $patientName = "Patient Not Found";
+    }
+} else {
+    // Redirect to an error page or handle the case where patient_id is not provided
+    header("Location: error_page.php");
+    exit();
+}
 ?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-        
-          </div><!-- /.col -->
-          
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <!-- Display patient's name -->
+                    <h1>Patient Overview - <?php echo $patientName['FirstName'] . ' ' . $patientName['LastName']; ?></h1>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
     </div>
-    <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patient Overview</title>
-    <style>
-        body {
-        font-family: 'Arial', sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f4f4f4;
-    }
-
-    h1 {
-        text-align: center;
-        color: #333;
-    }
-
-    .overview-container {
-        display: flex;
-        justify-content: space-evenly;
-        padding: 15px;
-        background-color: #fff;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        overflow-x: auto;
-    }
-
-    .overview-item {
-        margin-right: 10px;
-        cursor: pointer;
-        padding: 10px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        background-color: #f8f8f8;
-        transition: background-color 0.3s ease-in-out;
-    }
-
-    .overview-item:hover {
-        background-color: #e6e6e6;
-    }
-
-    .overview-content {
-        display: none;
-        padding: 20px;
-        background-color: #fff;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        border-radius: 5px;
-        margin-top: 20px;
-    }
-
-    .overview-content.active {
-        display: block;
-    }
-
-    </style>
-</head>
-<body>
-
-    <h1>Patient Overview - Samantha Otieno</h1>
 
     <!-- Add links to each section in the overview container -->
     <div class="overview-container">
@@ -150,13 +138,8 @@ include "doctor_header.php";
             }
         }
     </script>
-
-</body>
-</html>
-
+</div>
 
 <?php
-
-include "footer.php";                 
+include "footer.php";
 ?>
-

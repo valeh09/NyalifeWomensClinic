@@ -51,6 +51,12 @@ include "reception_header.php";
         font-weight: bold;
         font-size: 0.9rem;
     }
+    .success-message {
+        color: #28a745; /* Green color for success message */
+        font-size: 1rem;
+        text-align: center;
+        margin-top: 10px;
+    }
 </style>
 
 
@@ -93,21 +99,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $maritalStatus = $_POST['marital_status'];
     $allergies = $_POST['allergies'];
     $idNumber = $_POST['id_number'];
+    $address = $_POST['address'];
     $occupation = $_POST['occupation'];
     $medication = $_POST['medication'];
     $additionalInformation = $_POST['additional_information'];
-    $password = $_POST['password'];
+    $type = $_POST['type'];
 
     // SQL query to insert patient information into the "patients" table
     $sql = "INSERT INTO patients (FirstName, LastName, PhoneNumber, EmailAddress, NextOfKin, NextOfKinPhoneNumber, 
-            Gender, DOB, BloodGroup, MaritalStatus, Allergies, IDNumber, Occupation, Medication, 
-            AdditionalInformation, Password) 
+            Gender, DOB, BloodGroup, MaritalStatus, Allergies, IDNumber, Address, Occupation, Medication, 
+            AdditionalInformation, Type) 
             VALUES ('$firstName', '$lastName', '$phoneNumber', '$emailAddress', '$nextOfKin', '$nextOfKinPhoneNumber', 
-            '$gender', '$dob', '$bloodGroup', '$maritalStatus', '$allergies', '$idNumber', '$occupation', 
-            '$medication', '$additionalInformation', '$password')";
+            '$gender', '$dob', '$bloodGroup', '$maritalStatus', '$allergies', '$idNumber',  '$address','$occupation', 
+            '$medication', '$additionalInformation', '$type')";
 
     if ($conn->query($sql) === TRUE) {
-        echo "Patient information added successfully!";
+        echo '<div class="success-message">Patient information added successfully!</div>';
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
@@ -149,6 +156,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <label for="blood_group">Blood Group:</label>
         <select name="blood_group">
+        <option value="Unknown">Unknown</option>
             <option value="O+">O+</option>
             <option value="O-">O-</option>
             <option value="A+">A+</option>
@@ -167,11 +175,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <option value="Widowed">Widowed</option>
         </select>
 
-        <label for="allergies">Allergies:</label>
-        <textarea name="allergies"></textarea>
+       
 
         <label for="id_number">ID Number:</label>
         <input type="text" name="id_number">
+
+        
+        <label for="Address">Address:</label>
+        <input type="text" name="address">
 
         <label for="occupation">Occupation:</label>
         <input type="text" name="occupation">
@@ -182,8 +193,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <label for="additional_information">Additional Information:</label>
         <textarea name="additional_information"></textarea>
 
-        <label for="password">Password:</label>
-        <input type="password" name="password" required>
+        <label for="allergies">Allergies:</label>
+        <textarea name="allergies"></textarea>
+
+        
+        <label for="type">Type:</label>
+        <select name="type">
+            <option value="Outpatient">Out-patient</option>
+            <option value="Inpatient">In-patient</option>
+        </select>
 
         <input type="submit" value="Add Patient">
     </form>

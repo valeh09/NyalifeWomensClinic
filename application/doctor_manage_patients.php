@@ -112,7 +112,7 @@ $conn->close();
 
 <div class="table-container">
     <div class="header">
-        <a href="doctor_add_patient.php" class="add-button">Add New Patient</a>
+     
         <form action="doctor_manage_patients.php" method="get" class="search-form">
             <input type="text" name="search" placeholder="Search..." value="<?= htmlspecialchars($search) ?>">
             <button type="submit">Search</button>
